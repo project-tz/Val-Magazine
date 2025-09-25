@@ -1,6 +1,6 @@
 // PRODUCTS (JSON integrated) - image files expected in the site root (same folder as index.html)
 const PRODUCTS = [
-  { "title": "Caneca Personalizada", "price": 59.90, "category": "Canecas", "image": "caneca.jpeg" },
+  { "title": "Caneca Personalizada", "price": 59.90, "category": "Canecas", "image": "canecavasco.jpeg" },
   { "title": "Bolsa Feminina Luxo", "price": 199.90, "category": "Bolsas", "image": "bolsa.jpeg" },
   { "title": "Relógio Digital Futurista", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" }
 ];
