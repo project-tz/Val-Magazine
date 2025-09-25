@@ -2,7 +2,8 @@
 const PRODUCTS = [
   { "title": "Caneca Personalizada", "price": 59.90, "category": "Canecas", "image": "canecavasco.jpeg" },
   { "title": "Bolsa Feminina Luxo", "price": 199.90, "category": "Bolsas", "image": "bolsa.jpeg" },
-  { "title": "Relógio Digital Futurista", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" }
+  { "title": "Relógio Digital Futurista", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" },
+  { "title": "Relógio Digital ", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" }
 ];
 
 let cart = {};
