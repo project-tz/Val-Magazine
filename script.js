@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
   clearCartBtn.addEventListener("click",()=>{cart=[];updateCart()});
   checkoutBtn.addEventListener("click",()=>{
     if(cart.length===0) return alert("Carrinho vazio!");
-    let msg="Olá, quero comprar:\n";
-    cart.forEach(i=>msg+=`${i.name} - ${i.qty} x R$ ${i.price.toFixed(2)}\n`);
+    let msg="Olá, quero comprar:\\n";
+    cart.forEach(i=>msg+=`${i.name} - ${i.qty} x R$ ${i.price.toFixed(2)}\\n`);
     window.open(`https://wa.me/5577981543503?text=${encodeURIComponent(msg)}`, "_blank");
   });
 });
