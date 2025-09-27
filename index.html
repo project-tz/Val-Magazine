@@ -11,17 +11,37 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <!-- logo: arquivo na raiz do site -->
         <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
         <div class="brand-text">Val Magazine</div>
       </div>
 
       <nav class="top-links" aria-label="redes e carrinho">
-        <a class="social" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
-          <span class="icon">📱</span><span class="link-text">WhatsApp</span>
-        </a>
-        <a class="social" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <span class="icon">📸</span><span class="link-text">Instagram</span>
+        <!-- Apenas Instagram -->
+        <a class="social instagram" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 
+            339 319.5 339 255.9 287.7 141 224.1 141zm0 
+            189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 
+            74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 
+            74.7zm146.4-194.3c0 14.9-12.1 27-27 
+            27-14.9 0-27-12.1-27-27s12.1-27 
+            27-27 27 12.1 27 27zm76.1 27.2c-.2-54.9-14.9-103.5-54.4-143C366.7 
+            14.9 318.1.2 263.2 0H184.8c-54.9.2-103.5 
+            14.9-143 54.4C14.9 93.9.2 142.5 0 
+            197.4v78.4c.2 54.9 14.9 103.5 
+            54.4 143 39.5 39.5 88.1 54.2 
+            143 54.4h78.4c54.9-.2 103.5-14.9 
+            143-54.4 39.5-39.5 54.2-88.1 
+            54.4-143V197.4zM398.8 388c-31.4 
+            31.4-73.2 48.6-117.6 
+            48.8H166.8c-44.4-.2-86.2-17.4-117.6-48.8-31.4-31.4-48.6-73.2-48.8-117.6V241.6c.2-44.4 
+            17.4-86.2 48.8-117.6 31.4-31.4 73.2-48.6 
+            117.6-48.8h114.4c44.4.2 86.2 
+            17.4 117.6 48.8 31.4 31.4 48.6 
+            73.2 48.8 117.6v28.8c-.2 44.4-17.4 
+            86.2-48.8 117.6z"/>
+          </svg>
+          <span class="link-text">Instagram</span>
         </a>
 
         <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
@@ -59,31 +79,25 @@
     </section>
 
     <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- produtos renderizados via script.js -->
+      <!-- Produtos renderizados via script.js -->
     </section>
   </main>
 
-  <!-- Carrinho lateral -->
   <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
     <div class="cart-header">
       <h3>Seu Carrinho</h3>
       <button id="close-cart" aria-label="Fechar carrinho">✕</button>
     </div>
-
-    <div id="cart-items" class="cart-items" role="region" aria-live="polite">
-      <!-- items -->
-    </div>
-
+    <div id="cart-items" class="cart-items"></div>
     <div class="cart-footer">
       <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
       <div class="cart-actions">
-        <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
-        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
+        <button id="clear-cart" class="btn ghost">Limpar</button>
+        <button id="checkout" class="btn primary">Finalizar via WhatsApp</button>
       </div>
     </div>
   </aside>
 
-  <!-- Modal de imagem -->
   <div id="img-modal" class="img-modal" aria-hidden="true">
     <div class="img-modal-content">
       <button id="close-modal" aria-label="Fechar imagem">✕</button>
@@ -92,7 +106,7 @@
     </div>
   </div>
 
-  <!-- WhatsApp flutuante -->
+  <!-- Botão flutuante WhatsApp -->
   <a id="whatsapp-float" class="whatsapp-float" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
     💬
   </a>
