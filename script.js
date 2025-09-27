@@ -26,21 +26,22 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" }
   ];
 
-  // Ordena produtos e categorias alfabeticamente
-  products.sort((a,b)=>a.name.localeCompare(b.name));
-  const categories = [...new Set(products.map(p=>p.category))].sort();
+  // Ordenar produtos alfabeticamente
+  products.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Popular filtro de categorias
+  const categories = [...new Set(products.map(p => p.category))].sort();
   categories.forEach(cat => {
-    const opt = document.createElement("option");
-    opt.value = cat;
-    opt.textContent = cat;
-    categoryFilter.appendChild(opt);
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categoryFilter.appendChild(option);
   });
 
+  // Atualiza ano no rodapé
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Renderiza produtos inicialmente
-  renderProducts(products);
-
+  // Renderiza produtos
   function renderProducts(list) {
     productsGrid.innerHTML = "";
     list.forEach(prod => {
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="product-price">R$ ${prod.price.toFixed(2)}</p>
         <div class="quantity-select">
           <button class="qty-minus" data-id="${prod.id}">-</button>
-          <input type="number" class="qty-input" value="1" min="1" data-id="${prod.id}">
+          <input type="number" min="1" value="1" data-id="${prod.id}">
           <button class="qty-plus" data-id="${prod.id}">+</button>
         </div>
         <button class="btn primary add-to-cart" data-id="${prod.id}">Adicionar</button>
@@ -63,10 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Busca e filtro
-  searchInput.addEventListener("input", filterProducts);
-  categoryFilter.addEventListener("change", filterProducts);
+  renderProducts(products);
 
+  // Filtrar produtos
   function filterProducts() {
     const term = searchInput.value.toLowerCase();
     const cat = categoryFilter.value;
@@ -78,122 +78,126 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(filtered);
   }
 
-  // Eventos globais
-  document.addEventListener("click", e => {
-    const id = e.target.dataset.id ? parseInt(e.target.dataset.id) : null;
+  searchInput.addEventListener("input", filterProducts);
+  categoryFilter.addEventListener("change", filterProducts);
 
-    // Adicionar produto ao carrinho
-    if (e.target.classList.contains("add-to-cart") && id) {
+  // Eventos do carrinho e produtos
+  document.addEventListener("click", e => {
+    const id = parseInt(e.target.dataset.id);
+
+    // Aumentar quantidade no card
+    if (e.target.classList.contains("qty-plus")) {
+      const input = document.querySelector(`input[data-id='${id}']`);
+      input.value = parseInt(input.value) + 1;
+    }
+
+    // Diminuir quantidade no card
+    if (e.target.classList.contains("qty-minus")) {
+      const input = document.querySelector(`input[data-id='${id}']`);
+      if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+    }
+
+    // Adicionar ao carrinho
+    if (e.target.classList.contains("add-to-cart")) {
       const prod = products.find(p => p.id === id);
-      const qtyInput = document.querySelector(`.qty-input[data-id="${id}"]`);
-      const qty = parseInt(qtyInput.value) || 1;
+      const input = document.querySelector(`input[data-id='${id}']`);
+      const qty = parseInt(input.value);
+      if (!prod) return;
 
       const item = cart.find(i => i.id === id);
-      if(item) item.qty += qty;
-      else cart.push({...prod, qty: qty});
+      if (item) item.qty += qty;
+      else cart.push({ ...prod, qty });
+
       updateCart();
     }
 
-    // Abrir modal imagem
-    if(e.target.classList.contains("product-img")){
+    // Imagem modal
+    if (e.target.classList.contains("product-img")) {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
       modal.style.display = "flex";
-      modal.setAttribute("aria-hidden","false");
+      modal.setAttribute("aria-hidden", "false");
     }
 
-    // Ajuste quantidade no card
-    if(e.target.classList.contains("qty-minus") && id){
-      const input = document.querySelector(`.qty-input[data-id="${id}"]`);
-      input.value = Math.max(1, parseInt(input.value)-1);
+    // Carrinho: aumentar/diminuir quantidade
+    if (e.target.classList.contains("cart-qty-plus")) {
+      const item = cart.find(i => i.id === id);
+      if (item) item.qty++;
+      updateCart();
     }
-    if(e.target.classList.contains("qty-plus") && id){
-      const input = document.querySelector(`.qty-input[data-id="${id}"]`);
-      input.value = parseInt(input.value)+1;
-    }
-
-    // Carrinho - diminuir quantidade
-    if(e.target.classList.contains("cart-minus") && id){
-      const item = cart.find(i => i.id===id);
-      if(item){
-        item.qty--;
-        if(item.qty<=0) cart = cart.filter(i=>i.id!==id);
-        updateCart();
-      }
+    if (e.target.classList.contains("cart-qty-minus")) {
+      const item = cart.find(i => i.id === id);
+      if (item && item.qty > 1) item.qty--;
+      updateCart();
     }
 
-    // Carrinho - aumentar quantidade
-    if(e.target.classList.contains("cart-plus") && id){
-      const item = cart.find(i=>i.id===id);
-      if(item){
-        item.qty++;
-        updateCart();
-      }
-    }
-
-    // Remover do carrinho
-    if(e.target.classList.contains("cart-remove") && id){
-      cart = cart.filter(i=>i.id!==id);
+    // Remover item
+    if (e.target.classList.contains("cart-remove")) {
+      cart = cart.filter(i => i.id !== id);
       updateCart();
     }
   });
 
-  // Fechar modal
-  closeModal.addEventListener("click", ()=>{
+  // Modal fechar
+  closeModal.addEventListener("click", () => {
     modal.style.display = "none";
-    modal.setAttribute("aria-hidden","true");
+    modal.setAttribute("aria-hidden", "true");
   });
 
-  // Carrinho abrir/fechar
-  cartBtn.addEventListener("click", ()=>{
+  // Abrir/fechar carrinho
+  cartBtn.addEventListener("click", () => {
     cartDrawer.classList.add("open");
-    cartDrawer.setAttribute("aria-hidden","false");
+    cartDrawer.setAttribute("aria-hidden", "false");
   });
-  closeCartBtn.addEventListener("click", ()=>{
+  closeCartBtn.addEventListener("click", () => {
     cartDrawer.classList.remove("open");
-    cartDrawer.setAttribute("aria-hidden","true");
+    cartDrawer.setAttribute("aria-hidden", "true");
   });
 
   // Atualizar carrinho
-  function updateCart(){
+  function updateCart() {
     cartItemsEl.innerHTML = "";
-    cart.sort((a,b)=>a.name.localeCompare(b.name));
     let total = 0;
-    cart.forEach(item=>{
+
+    // Ordenar alfabeticamente
+    cart.sort((a, b) => a.name.localeCompare(b.name));
+
+    cart.forEach(item => {
       total += item.price * item.qty;
       const div = document.createElement("div");
-      div.className="cart-item";
-      div.innerHTML=`
+      div.className = "cart-item";
+      div.innerHTML = `
         <img src="${item.image}" alt="${item.name}">
         <div>${item.name}</div>
         <div>
-          <button class="cart-minus" data-id="${item.id}">-</button>
+          <button class="cart-qty-minus" data-id="${item.id}">-</button>
           ${item.qty}
-          <button class="cart-plus" data-id="${item.id}">+</button>
-          <button class="cart-remove" data-id="${item.id}">✕</button>
+          <button class="cart-qty-plus" data-id="${item.id}">+</button>
         </div>
-        <div>R$ ${(item.price*item.qty).toFixed(2)}</div>
+        <div>R$ ${(item.price * item.qty).toFixed(2)}</div>
+        <button class="cart-remove" data-id="${item.id}">✕</button>
       `;
       cartItemsEl.appendChild(div);
     });
-    cartCount.textContent = cart.reduce((sum,i)=>sum+i.qty,0);
+
+    cartCount.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
     cartTotalEl.textContent = total.toFixed(2);
   }
 
   // Limpar carrinho
-  clearCartBtn.addEventListener("click", ()=>{
-    cart=[];
+  clearCartBtn.addEventListener("click", () => {
+    cart = [];
     updateCart();
   });
 
   // Checkout via WhatsApp
-  checkoutBtn.addEventListener("click", ()=>{
-    if(cart.length===0) return;
+  checkoutBtn.addEventListener("click", () => {
+    if (cart.length === 0) return;
     let msg = "Olá, quero finalizar meu pedido:%0A%0A";
-    cart.forEach(item=>{
-      msg += `• ${item.name} (x${item.qty}) - R$ ${(item.price*item.qty).toFixed(2)}%0A`;
+    cart.forEach(item => {
+      msg += `• ${item.name} (x${item.qty}) - R$ ${(item.price * item.qty).toFixed(2)}%0A`;
     });
     msg += `%0ATotal: R$ ${cartTotalEl.textContent}`;
-    window.open(`https://wa.me/5577981543503?text=${msg}`,"_blank");
+    window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
   });
 });
