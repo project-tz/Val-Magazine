@@ -25,15 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" }
   ];
 
-  products.sort((a, b) => a.name.localeCompare(b.name));
+  products.sort((a,b)=>a.name.localeCompare(b.name));
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  function renderProducts(list) {
-    productsGrid.innerHTML = "";
-    list.forEach(prod => {
+  function renderProducts(list){
+    productsGrid.innerHTML="";
+    list.forEach(prod=>{
       const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
+      card.className="product-card";
+      card.innerHTML=`
         <div class="product-img-wrap">
           <img src="${prod.image}" alt="${prod.name}" class="product-img" data-name="${prod.name}" data-img="${prod.image}">
         </div>
@@ -55,103 +55,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderProducts(products);
 
-  function filterProducts() {
+  function filterProducts(){
     const term = searchInput.value.toLowerCase();
     const cat = categoryFilter.value;
-    const filtered = products.filter(p => {
-      const matchTerm = p.name.toLowerCase().includes(term);
-      const matchCat = cat === "Todos" || p.category === cat;
-      return matchTerm && matchCat;
+    const filtered = products.filter(p=>{
+      const matchTerm=p.name.toLowerCase().includes(term);
+      const matchCat=cat==="Todos"||p.category===cat;
+      return matchTerm&&matchCat;
     });
     renderProducts(filtered);
   }
 
-  searchInput.addEventListener("input", filterProducts);
-  categoryFilter.addEventListener("change", filterProducts);
+  searchInput.addEventListener("input",filterProducts);
+  categoryFilter.addEventListener("change",filterProducts);
 
-  document.addEventListener("click", e => {
-    const name = e.target.dataset.name;
+  document.addEventListener("click", e=>{
+    const name=e.target.dataset.name;
 
     // Quantidade no card
-    if (e.target.classList.contains("qty-plus")) {
-      const input = document.querySelector(`input[data-name='${name}']`);
-      input.value = parseInt(input.value) + 1;
+    if(e.target.classList.contains("qty-plus")){
+      const input=document.querySelector(`input[data-name='${name}']`);
+      input.value=parseInt(input.value)+1;
     }
-    if (e.target.classList.contains("qty-minus")) {
-      const input = document.querySelector(`input[data-name='${name}']`);
-      if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+    if(e.target.classList.contains("qty-minus")){
+      const input=document.querySelector(`input[data-name='${name}']`);
+      if(parseInt(input.value)>1) input.value=parseInt(input.value)-1;
     }
 
     // Adicionar ao carrinho
-    if (e.target.classList.contains("add-to-cart")) {
-      const prod = products.find(p => p.name === name);
-      const input = document.querySelector(`input[data-name='${name}']`);
-      const qty = parseInt(input.value);
-      if (!prod) return;
-
-      const item = cart.find(i => i.name === name);
-      if (item) item.qty += qty;
-      else cart.push({ ...prod, qty });
+    if(e.target.classList.contains("add-to-cart")){
+      const prod=products.find(p=>p.name===name);
+      const input=document.querySelector(`input[data-name='${name}']`);
+      const qty=parseInt(input.value);
+      if(!prod) return;
+      const item=cart.find(i=>i.name===name);
+      if(item) item.qty+=qty;
+      else cart.push({...prod,qty});
       updateCart(true);
     }
 
     // Comprar Agora
-    if (e.target.classList.contains("buy-now")) {
-      const prod = products.find(p => p.name === name);
-      if (!prod) return;
-      const msg = `Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${prod.price.toFixed(2)}`;
-      window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
+    if(e.target.classList.contains("buy-now")){
+      const prod=products.find(p=>p.name===name);
+      if(!prod) return;
+      const msg=`Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${prod.price.toFixed(2)}`;
+      window.open(`https://wa.me/5577981543503?text=${msg}`,"_blank");
     }
 
     // Modal de imagem
-    if (e.target.classList.contains("product-img")) {
-      modalImage.src = e.target.dataset.img;
-      modalCaption.textContent = e.target.dataset.name;
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden", "false");
+    if(e.target.classList.contains("product-img")){
+      modalImage.src=e.target.dataset.img;
+      modalCaption.textContent=e.target.dataset.name;
+      modal.style.display="flex";
+      modal.setAttribute("aria-hidden","false");
     }
 
     // Carrinho interno
-    if (e.target.classList.contains("cart-qty-plus")) {
-      const item = cart.find(i => i.name === name);
-      if (item) item.qty++;
+    if(e.target.classList.contains("cart-qty-plus")){
+      const item=cart.find(i=>i.name===name);
+      if(item) item.qty++;
       updateCart();
     }
-    if (e.target.classList.contains("cart-qty-minus")) {
-      const item = cart.find(i => i.name === name);
-      if (item && item.qty > 1) item.qty--;
+    if(e.target.classList.contains("cart-qty-minus")){
+      const item=cart.find(i=>i.name===name);
+      if(item && item.qty>1) item.qty--;
       updateCart();
     }
-    if (e.target.classList.contains("cart-remove")) {
-      cart = cart.filter(i => i.name !== name);
+    if(e.target.classList.contains("cart-remove")){
+      cart=cart.filter(i=>i.name!==name);
       updateCart();
     }
   });
 
-  closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
+  closeModal.addEventListener("click",()=>{
+    modal.style.display="none";
+    modal.setAttribute("aria-hidden","true");
   });
 
-  // Abrir/Fechar carrinho
-  cartBtn.addEventListener("click", () => {
+  cartBtn.addEventListener("click",()=>{
     cartDrawer.classList.add("open");
-    cartDrawer.setAttribute("aria-hidden", "false");
+    cartDrawer.setAttribute("aria-hidden","false");
   });
-  closeCartBtn.addEventListener("click", () => {
+  closeCartBtn.addEventListener("click",()=>{
     cartDrawer.classList.remove("open");
-    cartDrawer.setAttribute("aria-hidden", "true");
+    cartDrawer.setAttribute("aria-hidden","true");
   });
 
-  function updateCart(animate = false) {
-    cartItemsEl.innerHTML = "";
-    let total = 0;
-    cart.sort((a, b) => a.name.localeCompare(b.name));
-    cart.forEach(item => {
-      total += item.price * item.qty;
-      const div = document.createElement("div");
-      div.className = "cart-item";
-      div.innerHTML = `
+  function updateCart(animate=false){
+    cartItemsEl.innerHTML="";
+    let total=0;
+    cart.sort((a,b)=>a.name.localeCompare(b.name));
+    cart.forEach(item=>{
+      total+=item.price*item.qty;
+      const div=document.createElement("div");
+      div.className="cart-item";
+      div.innerHTML=`
         <img src="${item.image}" alt="${item.name}">
         <div>${item.name}</div>
         <div>
@@ -159,34 +157,31 @@ document.addEventListener("DOMContentLoaded", () => {
           ${item.qty}
           <button class="cart-qty-plus" data-name="${item.name}">+</button>
         </div>
-        <div>R$ ${(item.price * item.qty).toFixed(2)}</div>
+        <div>R$ ${(item.price*item.qty).toFixed(2)}</div>
         <button class="cart-remove" data-name="${item.name}">✕</button>
       `;
       cartItemsEl.appendChild(div);
     });
-
-    cartCount.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
-
-    if (animate) {
+    cartCount.textContent=cart.reduce((sum,i)=>sum+i.qty,0);
+    if(animate){
       cartCount.classList.add("bounce");
-      setTimeout(() => cartCount.classList.remove("bounce"), 300);
+      setTimeout(()=>cartCount.classList.remove("bounce"),300);
     }
-
-    cartTotalEl.textContent = total.toFixed(2);
+    cartTotalEl.textContent=total.toFixed(2);
   }
 
-  clearCartBtn.addEventListener("click", () => {
-    cart = [];
+  clearCartBtn.addEventListener("click",()=>{
+    cart=[];
     updateCart(true);
   });
 
-  checkoutBtn.addEventListener("click", () => {
-    if (cart.length === 0) return;
-    let msg = "Olá, quero finalizar meu pedido:%0A%0A";
-    cart.forEach(item => {
-      msg += `• ${item.name} (x${item.qty}) - R$ ${(item.price * item.qty).toFixed(2)}%0A`;
+  checkoutBtn.addEventListener("click",()=>{
+    if(cart.length===0) return;
+    let msg="Olá, quero finalizar meu pedido:%0A%0A";
+    cart.forEach(item=>{
+      msg+=`• ${item.name} (x${item.qty}) - R$ ${(item.price*item.qty).toFixed(2)}%0A`;
     });
-    msg += `%0ATotal: R$ ${cartTotalEl.textContent}`;
-    window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
+    msg+=`%0ATotal: R$ ${cartTotalEl.textContent}`;
+    window.open(`https://wa.me/5577981543503?text=${msg}`,"_blank");
   });
 });
