@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let cart = [];
 
-  // Produtos definidos diretamente no JS
+  // Produtos de exemplo
   let products = [
     { id: 1, name: "Bolsa Casual", category: "Bolsas", price: 120.00, image: "bolsa.jpeg" },
     { id: 2, name: "Caneca Time (Vasco)", category: "Canecas", price: 39.50, image: "canecavasco.jpeg" },
@@ -28,21 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ordenar produtos alfabeticamente
   products.sort((a, b) => a.name.localeCompare(b.name));
-
-  // Categorias fixas (ordenadas)
-  const categories = [
-    "Acessórios","Avatim","Beleza","Bolsas","Brinquedos","Canecas",
-    "Casa/Decoração","Difusores","Eletrônicos","Hot","Kit/Cestas",
-    "Pelúcias","Relógios","Utensílios","Outros"
-  ].sort();
-
-  // Popular filtro de categorias
-  categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    categoryFilter.appendChild(option);
-  });
 
   // Atualiza ano no rodapé
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -91,13 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", e => {
     const id = parseInt(e.target.dataset.id);
 
-    // Aumentar quantidade no card
+    // Aumentar/diminuir no card
     if (e.target.classList.contains("qty-plus")) {
       const input = document.querySelector(`input[data-id='${id}']`);
       input.value = parseInt(input.value) + 1;
     }
-
-    // Diminuir quantidade no card
     if (e.target.classList.contains("qty-minus")) {
       const input = document.querySelector(`input[data-id='${id}']`);
       if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
@@ -117,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCart();
     }
 
-    // Imagem modal
+    // Modal imagem
     if (e.target.classList.contains("product-img")) {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
@@ -125,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.setAttribute("aria-hidden", "false");
     }
 
-    // Carrinho: aumentar/diminuir quantidade
+    // Carrinho aumentar/diminuir
     if (e.target.classList.contains("cart-qty-plus")) {
       const item = cart.find(i => i.id === id);
       if (item) item.qty++;
@@ -165,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cartItemsEl.innerHTML = "";
     let total = 0;
 
-    // Ordenar alfabeticamente
     cart.sort((a, b) => a.name.localeCompare(b.name));
 
     cart.forEach(item => {
