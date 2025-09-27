@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let cart = [];
 
+  // Produtos de exemplo
   let products = [
     { id: 1, name: "Bolsa Casual", category: "Bolsas", price: 120.00, image: "bolsa.jpeg" },
     { id: 2, name: "Caneca Time (Vasco)", category: "Canecas", price: 39.50, image: "canecavasco.jpeg" },
@@ -69,9 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("input", filterProducts);
   categoryFilter.addEventListener("change", filterProducts);
 
+  // EVENTOS GERAIS
   document.addEventListener("click", e => {
     const id = parseInt(e.target.dataset.id);
 
+    // Quantidade
     if (e.target.classList.contains("qty-plus")) {
       const input = document.querySelector(`input[data-id='${id}']`);
       input.value = parseInt(input.value) + 1;
@@ -81,24 +84,29 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
     }
 
+    // Adicionar ao carrinho
     if (e.target.classList.contains("add-to-cart")) {
       const prod = products.find(p => p.id === id);
       const input = document.querySelector(`input[data-id='${id}']`);
       const qty = parseInt(input.value);
       if (!prod) return;
+
       const item = cart.find(i => i.id === id);
       if (item) item.qty += qty;
       else cart.push({ ...prod, qty });
-      updateCart();
+
+      updateCart(true);
     }
 
+    // Comprar Agora
     if (e.target.classList.contains("buy-now")) {
       const prod = products.find(p => p.id === id);
       if (!prod) return;
-      let msg = `Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${prod.price.toFixed(2)}`;
+      const msg = `Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${prod.price.toFixed(2)}`;
       window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
     }
 
+    // Modal imagem
     if (e.target.classList.contains("product-img")) {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
@@ -106,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.setAttribute("aria-hidden", "false");
     }
 
+    // Carrinho interno
     if (e.target.classList.contains("cart-qty-plus")) {
       const item = cart.find(i => i.id === id);
       if (item) item.qty++;
@@ -127,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.setAttribute("aria-hidden", "true");
   });
 
+  // ABRIR / FECHAR CARRINHO
   cartBtn.addEventListener("click", () => {
     cartDrawer.classList.add("open");
     cartDrawer.setAttribute("aria-hidden", "false");
@@ -136,10 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
     cartDrawer.setAttribute("aria-hidden", "true");
   });
 
-  function updateCart() {
+  // ATUALIZA CARRINHO
+  function updateCart(animate = false) {
     cartItemsEl.innerHTML = "";
     let total = 0;
+
     cart.sort((a, b) => a.name.localeCompare(b.name));
+
     cart.forEach(item => {
       total += item.price * item.qty;
       const div = document.createElement("div");
@@ -159,15 +172,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cartCount.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
-    cartCount.classList.add("bounce");
-    setTimeout(() => cartCount.classList.remove("bounce"), 300);
+
+    // animação bounce
+    if (animate) {
+      cartCount.classList.add("bounce");
+      setTimeout(() => cartCount.classList.remove("bounce"), 300);
+    }
 
     cartTotalEl.textContent = total.toFixed(2);
   }
 
   clearCartBtn.addEventListener("click", () => {
     cart = [];
-    updateCart();
+    updateCart(true);
   });
 
   checkoutBtn.addEventListener("click", () => {
