@@ -18,7 +18,14 @@
 
       <nav class="top-links" aria-label="redes e carrinho">
         <a class="social" href="https://www.instagram.com/valmagazinecle" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <svg class="social-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#grad)" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f58529"/>
+                <stop offset="50%" stop-color="#dd2a7b"/>
+                <stop offset="100%" stop-color="#515bd4"/>
+              </linearGradient>
+            </defs>
             <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5C22 19.55 19.55 22 16.25 22h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 2C5.68 4 4 5.68 4 7.75v8.5C4 18.32 5.68 20 7.75 20h8.5c2.07 0 3.75-1.68 3.75-3.75v-8.5C20 5.68 18.32 4 16.25 4h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm4.5-2a1 1 0 110 2 1 1 0 010-2z"/>
           </svg>
         </a>
@@ -69,9 +76,7 @@
       <button id="close-cart" aria-label="Fechar carrinho">✕</button>
     </div>
 
-    <div id="cart-items" class="cart-items" role="region" aria-live="polite">
-      <!-- items -->
-    </div>
+    <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
 
     <div class="cart-footer">
       <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
@@ -88,7 +93,6 @@
       <button id="close-modal" aria-label="Fechar imagem">✕</button>
       <img id="modal-image" src="" alt="">
       <div id="modal-caption" class="modal-caption"></div>
-      <button id="buy-now-modal" class="btn primary">Comprar Agora</button>
     </div>
   </div>
 
@@ -100,7 +104,6 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
   <script src="script.js" defer></script>
 </body>
 </html>
