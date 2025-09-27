@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let cart = [];
 
   // Produtos definidos diretamente no JS
-  const products = [
+  let products = [
     { id: 1, name: "Bolsa Casual", category: "Bolsas", price: 120.00, image: "bolsa.jpeg" },
     { id: 2, name: "Caneca Time (Vasco)", category: "Canecas", price: 39.50, image: "canecavasco.jpeg" },
     { id: 3, name: "Creme Facial", category: "Beleza", price: 45.50, image: "creme.jpeg" },
@@ -26,19 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" }
   ];
 
-  // Ordena produtos alfabeticamente
+  // Ordena produtos e categorias alfabeticamente
   products.sort((a,b)=>a.name.localeCompare(b.name));
-
-  // Pega categorias únicas e ordena
-  const categories = Array.from(new Set(products.map(p=>p.category))).sort();
-  categories.forEach(cat=>{
+  const categories = [...new Set(products.map(p=>p.category))].sort();
+  categories.forEach(cat => {
     const opt = document.createElement("option");
     opt.value = cat;
     opt.textContent = cat;
     categoryFilter.appendChild(opt);
   });
 
-  // Atualiza ano no rodapé
   document.getElementById("year").textContent = new Date().getFullYear();
 
   // Renderiza produtos inicialmente
@@ -46,8 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderProducts(list) {
     productsGrid.innerHTML = "";
-    // Ordena alfabeticamente
-    list.sort((a,b)=>a.name.localeCompare(b.name));
     list.forEach(prod => {
       const card = document.createElement("div");
       card.className = "product-card";
@@ -59,10 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="product-price">R$ ${prod.price.toFixed(2)}</p>
         <div class="quantity-select">
           <button class="qty-minus" data-id="${prod.id}">-</button>
-          <input type="number" class="qty-input" data-id="${prod.id}" value="1" min="1">
+          <input type="number" class="qty-input" value="1" min="1" data-id="${prod.id}">
           <button class="qty-plus" data-id="${prod.id}">+</button>
         </div>
-        <button class="add-to-cart" data-id="${prod.id}">Adicionar</button>
+        <button class="btn primary add-to-cart" data-id="${prod.id}">Adicionar</button>
       `;
       productsGrid.appendChild(card);
     });
@@ -83,96 +78,101 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(filtered);
   }
 
-  // Eventos de click
+  // Eventos globais
   document.addEventListener("click", e => {
-    const target = e.target;
+    const id = e.target.dataset.id ? parseInt(e.target.dataset.id) : null;
 
-    // Modal de imagem
-    if(target.classList.contains("product-img")){
-      modalImage.src = target.dataset.img;
-      modalCaption.textContent = target.dataset.name;
+    // Adicionar produto ao carrinho
+    if (e.target.classList.contains("add-to-cart") && id) {
+      const prod = products.find(p => p.id === id);
+      const qtyInput = document.querySelector(`.qty-input[data-id="${id}"]`);
+      const qty = parseInt(qtyInput.value) || 1;
+
+      const item = cart.find(i => i.id === id);
+      if(item) item.qty += qty;
+      else cart.push({...prod, qty: qty});
+      updateCart();
+    }
+
+    // Abrir modal imagem
+    if(e.target.classList.contains("product-img")){
+      modalImage.src = e.target.dataset.img;
+      modalCaption.textContent = e.target.dataset.name;
       modal.style.display = "flex";
       modal.setAttribute("aria-hidden","false");
     }
 
-    // Abrir carrinho
-    if(target.id === "cart-btn"){
-      cartDrawer.classList.add("open");
-      cartDrawer.setAttribute("aria-hidden","false");
+    // Ajuste quantidade no card
+    if(e.target.classList.contains("qty-minus") && id){
+      const input = document.querySelector(`.qty-input[data-id="${id}"]`);
+      input.value = Math.max(1, parseInt(input.value)-1);
+    }
+    if(e.target.classList.contains("qty-plus") && id){
+      const input = document.querySelector(`.qty-input[data-id="${id}"]`);
+      input.value = parseInt(input.value)+1;
     }
 
-    // Fechar carrinho
-    if(target.id === "close-cart"){
-      cartDrawer.classList.remove("open");
-      cartDrawer.setAttribute("aria-hidden","true");
+    // Carrinho - diminuir quantidade
+    if(e.target.classList.contains("cart-minus") && id){
+      const item = cart.find(i => i.id===id);
+      if(item){
+        item.qty--;
+        if(item.qty<=0) cart = cart.filter(i=>i.id!==id);
+        updateCart();
+      }
     }
 
-    // Adicionar produto
-    if(target.classList.contains("add-to-cart")){
-      const id = parseInt(target.dataset.id);
-      const inputQty = document.querySelector(`.qty-input[data-id="${id}"]`);
-      const qty = parseInt(inputQty.value) || 1;
-      addToCart(id, qty);
+    // Carrinho - aumentar quantidade
+    if(e.target.classList.contains("cart-plus") && id){
+      const item = cart.find(i=>i.id===id);
+      if(item){
+        item.qty++;
+        updateCart();
+      }
     }
 
     // Remover do carrinho
-    if(target.classList.contains("remove-cart")){
-      const id = parseInt(target.dataset.id);
-      cart = cart.filter(i => i.id !== id);
+    if(e.target.classList.contains("cart-remove") && id){
+      cart = cart.filter(i=>i.id!==id);
       updateCart();
-    }
-
-    // Aumentar quantidade no produto
-    if(target.classList.contains("qty-plus")){
-      const id = parseInt(target.dataset.id);
-      const inputQty = document.querySelector(`.qty-input[data-id="${id}"]`);
-      inputQty.value = parseInt(inputQty.value)+1;
-    }
-
-    // Diminuir quantidade no produto
-    if(target.classList.contains("qty-minus")){
-      const id = parseInt(target.dataset.id);
-      const inputQty = document.querySelector(`.qty-input[data-id="${id}"]`);
-      inputQty.value = Math.max(1, parseInt(inputQty.value)-1);
     }
   });
 
   // Fechar modal
-  closeModal.addEventListener("click", () => {
+  closeModal.addEventListener("click", ()=>{
     modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("aria-hidden","true");
   });
 
-  // Adicionar produto ao carrinho
-  function addToCart(id, qty){
-    const prod = products.find(p=>p.id===id);
-    if(!prod) return;
-    const item = cart.find(i=>i.id===id);
-    if(item){
-      item.qty += qty;
-    } else {
-      cart.push({...prod, qty});
-    }
-    updateCart();
-  }
+  // Carrinho abrir/fechar
+  cartBtn.addEventListener("click", ()=>{
+    cartDrawer.classList.add("open");
+    cartDrawer.setAttribute("aria-hidden","false");
+  });
+  closeCartBtn.addEventListener("click", ()=>{
+    cartDrawer.classList.remove("open");
+    cartDrawer.setAttribute("aria-hidden","true");
+  });
 
-  // Atualiza carrinho
+  // Atualizar carrinho
   function updateCart(){
-    // Ordena alfabeticamente
-    cart.sort((a,b)=>a.name.localeCompare(b.name));
     cartItemsEl.innerHTML = "";
+    cart.sort((a,b)=>a.name.localeCompare(b.name));
     let total = 0;
     cart.forEach(item=>{
       total += item.price * item.qty;
       const div = document.createElement("div");
-      div.className = "cart-item";
-      div.innerHTML = `
+      div.className="cart-item";
+      div.innerHTML=`
         <img src="${item.image}" alt="${item.name}">
         <div>${item.name}</div>
         <div>
-          R$ ${(item.price*item.qty).toFixed(2)}
-          <button class="remove-cart" data-id="${item.id}">✕</button>
+          <button class="cart-minus" data-id="${item.id}">-</button>
+          ${item.qty}
+          <button class="cart-plus" data-id="${item.id}">+</button>
+          <button class="cart-remove" data-id="${item.id}">✕</button>
         </div>
+        <div>R$ ${(item.price*item.qty).toFixed(2)}</div>
       `;
       cartItemsEl.appendChild(div);
     });
@@ -191,9 +191,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if(cart.length===0) return;
     let msg = "Olá, quero finalizar meu pedido:%0A%0A";
     cart.forEach(item=>{
-      msg+=`• ${item.name} (x${item.qty}) - R$ ${(item.price*item.qty).toFixed(2)}%0A`;
+      msg += `• ${item.name} (x${item.qty}) - R$ ${(item.price*item.qty).toFixed(2)}%0A`;
     });
-    msg+=`%0ATotal: R$ ${cartTotalEl.textContent}`;
+    msg += `%0ATotal: R$ ${cartTotalEl.textContent}`;
     window.open(`https://wa.me/5577981543503?text=${msg}`,"_blank");
   });
 });
