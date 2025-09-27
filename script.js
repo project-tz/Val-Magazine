@@ -86,11 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const input = document.querySelector(`input[data-id='${id}']`);
       const qty = parseInt(input.value);
       if (!prod) return;
-
       const item = cart.find(i => i.id === id);
       if (item) item.qty += qty;
       else cart.push({ ...prod, qty });
-
       updateCart();
     }
 
@@ -141,9 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCart() {
     cartItemsEl.innerHTML = "";
     let total = 0;
-
     cart.sort((a, b) => a.name.localeCompare(b.name));
-
     cart.forEach(item => {
       total += item.price * item.qty;
       const div = document.createElement("div");
@@ -163,6 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cartCount.textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+    cartCount.classList.add("bounce");
+    setTimeout(() => cartCount.classList.remove("bounce"), 300);
+
     cartTotalEl.textContent = total.toFixed(2);
   }
 
