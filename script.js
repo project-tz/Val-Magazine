@@ -1,19 +1,17 @@
-// PRODUCTS (JSON integrated) - image files expected in the site root (same folder as index.html)
+// Produtos
 const PRODUCTS = [
   { "title": "Caneca Personalizada", "price": 59.90, "category": "Canecas", "image": "canecavasco.jpeg" },
   { "title": "Bolsa Feminina Luxo", "price": 199.90, "category": "Bolsas", "image": "bolsa.jpeg" },
   { "title": "Relógio Digital Futurista", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" },
-  { "title": "Relógio Digital ", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" }
+  { "title": "Relógio Digital", "price": 299.90, "category": "Relógios", "image": "relogio.jpeg" }
 ];
 
 let cart = {};
 
-// helper to remove accents and lower-case
 function normalize(str){
   return String(str || '').normalize('NFD').replace(/[̀-\u036f]/g,'').toLowerCase();
 }
 
-// DOM refs
 const productsGrid = document.getElementById('products-grid');
 const searchInput = document.getElementById('search');
 const categoryFilter = document.getElementById('category-filter');
@@ -31,7 +29,7 @@ const modalImage = document.getElementById('modal-image');
 const modalCaption = document.getElementById('modal-caption');
 const closeModal = document.getElementById('close-modal');
 
-// render products
+// Render produtos
 function renderProducts(list = PRODUCTS){
   productsGrid.innerHTML = '';
   list.forEach((p, idx) => {
@@ -48,8 +46,8 @@ function renderProducts(list = PRODUCTS){
       <div class="product-bottom">
         <div class="price">R$ ${p.price.toFixed(2)}</div>
         <div class="card-actions">
-          <button class="btn add" data-index="${idx}" aria-label="Adicionar ao carrinho">Adicionar</button>
-          <button class="btn primary buy" data-index="${idx}" aria-label="Comprar agora via WhatsApp">Comprar</button>
+          <button class="btn add" data-index="${idx}">Adicionar</button>
+          <button class="btn primary buy" data-index="${idx}">Comprar</button>
         </div>
       </div>
     `;
@@ -57,7 +55,7 @@ function renderProducts(list = PRODUCTS){
   });
 }
 
-// filters + search
+// Filtros
 function applyFilters(){
   const q = normalize(searchInput.value.trim());
   const cat = categoryFilter.value;
@@ -70,7 +68,7 @@ function applyFilters(){
   renderProducts(filtered);
 }
 
-// cart UI update
+// Atualiza carrinho
 function updateCartUI(){
   const items = Object.values(cart);
   const total = items.reduce((s,it)=> s + it.price*it.qty, 0);
@@ -95,18 +93,18 @@ function updateCartUI(){
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
         <div class="qty-controls">
-          <button aria-label="Diminuir quantidade" data-decrease="${it.id}">-</button>
-          <div aria-live="polite" style="padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.04)">${it.qty}</div>
-          <button aria-label="Aumentar quantidade" data-increase="${it.id}">+</button>
+          <button data-decrease="${it.id}">-</button>
+          <div style="padding:6px 8px">${it.qty}</div>
+          <button data-increase="${it.id}">+</button>
         </div>
-        <button aria-label="Remover item" data-remove="${it.id}" style="margin-top:6px">Remover</button>
+        <button data-remove="${it.id}" style="margin-top:6px">Remover</button>
       </div>
     `;
     cartItemsWrap.appendChild(el);
   });
 }
 
-// add to cart
+// Adiciona item
 function addToCart(product){
   const id = normalize(product.title + product.price);
   if(cart[id]) cart[id].qty += 1;
@@ -114,92 +112,80 @@ function addToCart(product){
   updateCartUI();
 }
 
-// open/close cart
-function openCart(){ cartDrawer.classList.add('open'); cartDrawer.setAttribute('aria-hidden','false'); }
-function closeCart(){ cartDrawer.classList.remove('open'); cartDrawer.setAttribute('aria-hidden','true'); }
-
-// events
+// Eventos
 searchInput.addEventListener('input', applyFilters);
 categoryFilter.addEventListener('change', applyFilters);
 
-productsGrid.addEventListener('click', (e) => {
-  const media = e.target.closest('.product-media');
-  if(media){
-    const idx = Number(media.dataset.index);
+productsGrid.addEventListener('click', e=>{
+  if(e.target.classList.contains('add')){
+    const idx = e.target.dataset.index;
+    addToCart(PRODUCTS[idx]);
+  }
+  if(e.target.classList.contains('buy')){
+    const idx = e.target.dataset.index;
+    const p = PRODUCTS[idx];
+    window.open(`https://wa.me/5577981543503?text=Olá! Quero comprar: ${encodeURIComponent(p.title)} - R$ ${p.price.toFixed(2)}`, '_blank');
+  }
+  if(e.target.closest('.product-media')){
+    const idx = e.target.closest('.product-media').dataset.index;
     const p = PRODUCTS[idx];
     modalImage.src = p.image;
-    modalImage.alt = p.title;
-    modalCaption.textContent = `${p.title} — R$ ${p.price.toFixed(2)}`;
+    modalCaption.textContent = p.title;
     imgModal.classList.add('show');
     imgModal.setAttribute('aria-hidden','false');
-    return;
-  }
-
-  const addBtn = e.target.closest('button.add');
-  if(addBtn){
-    const idx = Number(addBtn.dataset.index);
-    addToCart(PRODUCTS[idx]);
-    return;
-  }
-
-  const buyBtn = e.target.closest('button.buy');
-  if(buyBtn){
-    const idx = Number(buyBtn.dataset.index);
-    const p = PRODUCTS[idx];
-    const text = encodeURIComponent(`Olá, quero comprar: ${p.title} - R$ ${p.price.toFixed(2)}.`);
-    window.open(`https://wa.me/5577981543503?text=${text}`, '_blank');
-    return;
   }
 });
 
-cartBtn.addEventListener('click', openCart);
-closeCartBtn.addEventListener('click', closeCart);
-clearCartBtn.addEventListener('click', ()=>{ cart = {}; updateCartUI(); });
-
-cartItemsWrap.addEventListener('click', (e) => {
-  const inc = e.target.dataset.increase;
-  const dec = e.target.dataset.decrease;
-  const rem = e.target.dataset.remove;
-  if(inc){
-    cart[inc].qty += 1; updateCartUI();
-  }
-  if(dec){
-    cart[dec].qty -= 1;
-    if(cart[dec].qty <= 0) delete cart[dec];
-    updateCartUI();
-  }
-  if(rem){
-    delete cart[rem]; updateCartUI();
-  }
-});
-
-checkoutBtn.addEventListener('click', ()=> {
-  const items = Object.values(cart);
-  if(items.length === 0){ alert('Carrinho vazio. Adicione itens antes de finalizar.'); return; }
-  let text = 'Olá, gostaria de comprar:%0A';
-  items.forEach(it => text += `${it.qty}x ${it.title} - R$ ${it.price.toFixed(2)}%0A`);
-  text += `%0ATotal: R$ ${items.reduce((s,i)=> s + i.price*i.qty,0).toFixed(2)}`;
-  window.open(`https://wa.me/5577981543503?text=${text}`, '_blank');
-});
-
-// modal close
-closeModal.addEventListener('click', () => {
-  imgModal.classList.remove('show');
-  imgModal.setAttribute('aria-hidden','true');
-});
-
-// close modal & cart with ESC
-window.addEventListener('keydown', (e)=> {
-  if(e.key === 'Escape'){
+imgModal.addEventListener('click', e=>{
+  if(e.target===imgModal || e.target===closeModal){
     imgModal.classList.remove('show');
     imgModal.setAttribute('aria-hidden','true');
-    closeCart();
   }
 });
 
-// init
-renderProducts(PRODUCTS);
-updateCartUI();
+// Carrinho
+cartBtn.addEventListener('click', ()=>{
+  cartDrawer.classList.add('open');
+  cartDrawer.setAttribute('aria-hidden','false');
+});
+closeCartBtn.addEventListener('click', ()=>{
+  cartDrawer.classList.remove('open');
+  cartDrawer.setAttribute('aria-hidden','true');
+});
+clearCartBtn.addEventListener('click', ()=>{
+  cart = {};
+  updateCartUI();
+});
+checkoutBtn.addEventListener('click', ()=>{
+  const items = Object.values(cart);
+  if(items.length === 0) return alert("Carrinho vazio!");
+  let text = "Olá! Gostaria de finalizar minha compra:\n\n";
+  items.forEach(it => {
+    text += `• ${it.title} (x${it.qty}) - R$ ${(it.price*it.qty).toFixed(2)}\n`;
+  });
+  text += `\nTotal: R$ ${cartTotalEl.textContent}`;
+  window.open(`https://wa.me/5577981543503?text=${encodeURIComponent(text)}`, '_blank');
+});
+cartItemsWrap.addEventListener('click', e=>{
+  if(e.target.dataset.increase){
+    cart[e.target.dataset.increase].qty++;
+    updateCartUI();
+  }
+  if(e.target.dataset.decrease){
+    const id = e.target.dataset.decrease;
+    if(cart[id].qty>1) cart[id].qty--;
+    else delete cart[id];
+    updateCartUI();
+  }
+  if(e.target.dataset.remove){
+    delete cart[e.target.dataset.remove];
+    updateCartUI();
+  }
+});
 
-// footer year
+// Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Inicial
+applyFilters();
+updateCartUI();
