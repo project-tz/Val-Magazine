@@ -15,9 +15,10 @@
         <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
         <div class="brand-text">Val Magazine</div>
       </div>
+
       <nav class="top-links" aria-label="redes e carrinho">
-        <a class="social" href="https://www.instagram.com/valmagazinecle" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <span class="icon">📷</span><span class="link-text">Instagram</span>
+        <a class="social instagram" href="https://www.instagram.com/valmagazinecle" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
+          <span class="icon">📷</span>
         </a>
         <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
           🛒 <span id="cart-count" class="cart-count">0</span>
@@ -35,13 +36,12 @@
       <div class="filters-wrap" aria-label="Filtros por categoria">
         <select id="category-filter" aria-label="Filtrar por categoria">
           <option value="Todos">Todos</option>
-          <!-- categorias adicionadas via script.js -->
         </select>
       </div>
     </section>
 
     <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- produtos renderizados via script.js -->
+      <!-- produtos renderizados via JS -->
     </section>
   </main>
 
@@ -52,13 +52,15 @@
       <button id="close-cart" aria-label="Fechar carrinho">✕</button>
     </div>
 
-    <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
+    <div id="cart-items" class="cart-items" role="region" aria-live="polite">
+      <!-- items -->
+    </div>
 
     <div class="cart-footer">
       <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
       <div class="cart-actions">
         <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
-        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
+        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar</button>
       </div>
     </div>
   </aside>
@@ -72,11 +74,7 @@
     </div>
   </div>
 
-  <!-- WhatsApp flutuante -->
-  <a id="whatsapp-float" class="whatsapp-float" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
-    💬
-  </a>
-
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>© <span id="year"></span> Val Magazine</div>
