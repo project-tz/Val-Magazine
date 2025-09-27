@@ -18,19 +18,7 @@
 
       <nav class="top-links" aria-label="redes e carrinho">
         <a class="social" href="https://www.instagram.com/valmagazinecle" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <!-- Ícone oficial Instagram -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="insta-icon" viewBox="0 0 448 512">
-            <defs>
-              <linearGradient id="insta-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#f09433"/>
-                <stop offset="25%" stop-color="#e6683c"/>
-                <stop offset="50%" stop-color="#dc2743"/>
-                <stop offset="75%" stop-color="#cc2366"/>
-                <stop offset="100%" stop-color="#bc1888"/>
-              </linearGradient>
-            </defs>
-            <path fill="url(#insta-gradient)" d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.23-30.23C294.1,122,224,122,224,122s-70.1,0-94.48,9.42a54,54,0,0,0-30.23,30.23C90,146.9,90,217,90,217s0,70.1,9.42,94.48a54,54,0,0,0,30.23,30.23C153.9,346,224,346,224,346s70.1,0,94.48-9.42a54,54,0,0,0,30.23-30.23C358,287.1,358,217,358,217S358,146.9,348.71,161.66ZM224,315.33A59.33,59.33,0,1,1,283.33,256,59.34,59.34,0,0,1,224,315.33Zm65.6-106.6a14,14,0,1,1,14-14A14,14,0,0,1,289.6,208.73Z"/>
-          </svg>
+          <img src="instagram-color.png" alt="Instagram" class="insta-icon" />
         </a>
         <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
           🛒 <span id="cart-count" class="cart-count">0</span>
@@ -67,7 +55,9 @@
       </div>
     </section>
 
-    <section id="products-grid" class="products-grid" aria-live="polite"></section>
+    <section id="products-grid" class="products-grid" aria-live="polite">
+      <!-- produtos renderizados via script.js -->
+    </section>
   </main>
 
   <!-- CARRINHO LATERAL -->
