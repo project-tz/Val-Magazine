@@ -78,7 +78,8 @@ main.container{ flex:1; padding:16px 20px; }
 .cart-items{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
 .cart-item{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .cart-item img{width:50px;height:50px;object-fit:cover;border-radius:8px}
-.cart-footer{padding:16px;border-top:1px solid rgba(0,0,0,0.1)}
+
+/* BOTÕES "+" E "-" DO CARRINHO */
 .cart-item button{
   width:28px;
   height:28px;
@@ -109,6 +110,8 @@ main.container{ flex:1; padding:16px 20px; }
 #checkout:hover{
   background:#222;
 }
+
+.cart-footer{padding:16px;border-top:1px solid rgba(0,0,0,0.1)}
 
 /* MODAL */
 .img-modal{ position:fixed; top:0;left:0;width:100%;height:100%; background:rgba(0,0,0,0.8); display:none; justify-content:center; align-items:center; z-index:100; }
