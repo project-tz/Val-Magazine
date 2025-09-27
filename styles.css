@@ -1,127 +1,123 @@
-:root{
-  --bg:#000000;
-  --card:#0b0b0c;
-  --accent:#7fc8ff;
-  --accent-2:#bdbdbd;
-  --muted:#9aa6b2;
-  --glass: rgba(255,255,255,0.03);
-  --radius:14px;
-  --gap:16px;
-  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
-}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Val Magazine — Catálogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
+        <div class="brand-text">Val Magazine</div>
+      </div>
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background:var(--bg);
-  color:#e9eef6;
-  -webkit-font-smoothing:antialiased;
-  line-height:1.4;
-}
+      <nav class="top-links" aria-label="redes e carrinho">
+        <!-- Apenas Instagram -->
+        <a class="social instagram" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 
+            339 319.5 339 255.9 287.7 141 224.1 141zm0 
+            189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 
+            74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 
+            74.7zm146.4-194.3c0 14.9-12.1 27-27 
+            27-14.9 0-27-12.1-27-27s12.1-27 
+            27-27 27 12.1 27 27zm76.1 27.2c-.2-54.9-14.9-103.5-54.4-143C366.7 
+            14.9 318.1.2 263.2 0H184.8c-54.9.2-103.5 
+            14.9-143 54.4C14.9 93.9.2 142.5 0 
+            197.4v78.4c.2 54.9 14.9 103.5 
+            54.4 143 39.5 39.5 88.1 54.2 
+            143 54.4h78.4c54.9-.2 103.5-14.9 
+            143-54.4 39.5-39.5 54.2-88.1 
+            54.4-143V197.4zM398.8 388c-31.4 
+            31.4-73.2 48.6-117.6 
+            48.8H166.8c-44.4-.2-86.2-17.4-117.6-48.8-31.4-31.4-48.6-73.2-48.8-117.6V241.6c.2-44.4 
+            17.4-86.2 48.8-117.6 31.4-31.4 73.2-48.6 
+            117.6-48.8h114.4c44.4.2 86.2 
+            17.4 117.6 48.8 31.4 31.4 48.6 
+            73.2 48.8 117.6v28.8c-.2 44.4-17.4 
+            86.2-48.8 117.6z"/>
+          </svg>
+          <span class="link-text">Instagram</span>
+        </a>
 
-/* HEADER */
-.site-header{
-  background:#000;
-  border-bottom:1px solid rgba(255,255,255,0.03);
-  position:sticky; top:0; z-index:60;
-}
-.header-inner{
-  max-width:1200px;
-  margin:0 auto;
-  padding:16px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-logo{width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(127,200,255,0.08));border-radius:8px}
-.brand-text{font-weight:700;font-size:1.25rem;color:var(--accent-2);text-shadow:0 0 6px rgba(127,200,255,0.06)}
+        <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
+          🛒 <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
 
-/* Top links */
-.top-links{display:flex;gap:12px;align-items:center}
-.social{display:flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;padding:8px;border-radius:10px;border:1px solid transparent}
-.social:hover{color:var(--accent);background:rgba(127,200,255,0.02);border-color:rgba(127,200,255,0.04)}
-.icon{font-size:1.05rem}
+  <main class="container">
+    <section class="controls">
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+      </div>
 
-/* Cart */
-.cart-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:12px;color:var(--muted);cursor:pointer;display:flex;gap:8px;align-items:center}
-.cart-btn:hover{color:var(--accent)}
-.cart-count{background:var(--accent);color:#000;padding:2px 7px;border-radius:999px;font-weight:700;font-size:0.8rem}
+      <div class="filters-wrap" aria-label="Filtros por categoria">
+        <select id="category-filter" aria-label="Filtrar por categoria">
+          <option value="Todos">Todos</option>
+          <option>Bolsas</option>
+          <option>Eletrônicos</option>
+          <option>Brinquedos</option>
+          <option>Hot</option>
+          <option>Kit/Cestas</option>
+          <option>Acessórios</option>
+          <option>Canecas</option>
+          <option>Pelúcias</option>
+          <option>Avatim</option>
+          <option>Casa/Decoração</option>
+          <option>Difusores</option>
+          <option>Relógios</option>
+          <option>Utensílios</option>
+          <option>Outros</option>
+        </select>
+      </div>
+    </section>
 
-/* Container */
-.container{max-width:1200px;margin:28px auto;padding:0 20px}
+    <section id="products-grid" class="products-grid" aria-live="polite">
+      <!-- Produtos renderizados via script.js -->
+    </section>
+  </main>
 
-/* Controls */
-.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:18px}
-.search-wrap{flex:1;min-width:180px}
-#search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:var(--card);color:inherit;font-size:0.95rem}
-#search:focus{outline:2px solid rgba(127,200,255,0.12)}
-.filters-wrap select{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:var(--card);color:inherit}
+  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
+    <div class="cart-header">
+      <h3>Seu Carrinho</h3>
+      <button id="close-cart" aria-label="Fechar carrinho">✕</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
+      <div class="cart-actions">
+        <button id="clear-cart" class="btn ghost">Limpar</button>
+        <button id="checkout" class="btn primary">Finalizar via WhatsApp</button>
+      </div>
+    </div>
+  </aside>
 
-/* Products grid */
-.products-grid{display:grid;gap:var(--gap);align-items:start}
-/* mobile: 3 por linha (solicitado) */
-@media (max-width:599px){ .products-grid{grid-template-columns:repeat(3,1fr)} }
-/* tablet: 4 colunas */
-@media (min-width:600px) and (max-width:991px){ .products-grid{grid-template-columns:repeat(4,1fr)} }
-/* desktop: 5 colunas */
-@media (min-width:992px){ .products-grid{grid-template-columns:repeat(5,1fr)} }
+  <div id="img-modal" class="img-modal" aria-hidden="true">
+    <div class="img-modal-content">
+      <button id="close-modal" aria-label="Fechar imagem">✕</button>
+      <img id="modal-image" src="" alt="">
+      <div id="modal-caption" class="modal-caption"></div>
+    </div>
+  </div>
 
-.product-card{
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-  display:flex;flex-direction:column;gap:8px;transition:transform .22s ease, box-shadow .22s ease;
-  cursor:zoom-in;
-}
-.product-card:hover{transform:translateY(-6px);box-shadow:0 10px 28px rgba(127,200,255,0.06)}
-.product-media{height:120px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--glass)}
-.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
-.product-card:hover .product-media img{transform:scale(1.03)}
-.product-title{font-weight:600;font-size:0.95rem}
-.product-category{font-size:0.75rem;color:var(--muted)}
-.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.price{font-weight:700;color:var(--accent);font-size:0.98rem}
+  <!-- Botão flutuante WhatsApp -->
+  <a id="whatsapp-float" class="whatsapp-float" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
+    💬
+  </a>
 
-/* Buttons */
-.card-actions{display:flex;gap:8px}
-.btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;cursor:pointer;font-weight:700;letter-spacing:0.2px;transition:all .18s ease}
-.btn:hover{transform:translateY(-3px)}
-.btn.primary{background:linear-gradient(90deg,var(--accent),#3db8ff);color:#000;border:none;box-shadow:0 8px 18px rgba(61,184,255,0.08)}
-.btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.04);color:var(--muted)}
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Val Magazine</div>
+      <div>Todos os direitos reservados.</div>
+    </div>
+  </footer>
 
-/* Cart drawer */
-.cart-drawer{position:fixed;right:-420px;top:0;height:100%;width:420px;background:#07070a;box-shadow:-30px 0 60px rgba(0,0,0,0.7);transition:right .28s ease;padding:18px;z-index:80;display:flex;flex-direction:column}
-.cart-drawer.open{right:0}
-.cart-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.03);padding-bottom:12px}
-.cart-items{flex:1;overflow:auto;margin:12px 0;padding-right:6px}
-.cart-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,0.02)}
-.cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-.qty-controls{display:flex;gap:6px;align-items:center}
-.qty-controls button{padding:6px 8px;border-radius:8px;border:none;background:rgba(255,255,255,0.06);cursor:pointer}
-.cart-footer{border-top:1px solid rgba(255,255,255,0.03);padding-top:12px}
-.cart-total{font-weight:700;margin-bottom:10px}
-
-/* Modal imagem */
-.img-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:120}
-.img-modal.show{display:flex}
-.img-modal-content{position:relative;max-width:92%;max-height:92%;padding:12px;border-radius:12px;background:linear-gradient(180deg,#0b0b0d,#101014);box-shadow:0 20px 50px rgba(0,0,0,0.6)}
-.img-modal-content img{max-width:100%;max-height:75vh;display:block;border-radius:8px}
-#close-modal{position:absolute;right:8px;top:8px;background:transparent;border:none;color:var(--accent);font-size:1.1rem;cursor:pointer}
-
-/* WhatsApp flutuante */
-.whatsapp-float{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,var(--accent),#3db8ff);width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:#000;font-size:1.6rem;text-decoration:none;box-shadow:0 12px 30px rgba(61,184,255,0.12);z-index:100}
-.whatsapp-float:hover{transform:translateY(-3px)}
-
-/* Footer */
-.site-footer{margin-top:32px;padding:20px 0;background:transparent;border-top:1px solid rgba(255,255,255,0.03)}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:0.95rem}
-
-/* Small screens adjustments */
-@media (max-width:599px){
-  .brand-text{font-size:0.9rem}
-  .header-inner{padding:12px}
-  .cart-drawer{width:100%}
-  .img-modal-content img{max-height:60vh}
-}
+  <script src="script.js" defer></script>
+</body>
+</html>
