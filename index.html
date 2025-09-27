@@ -15,13 +15,9 @@
         <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
         <div class="brand-text">Val Magazine</div>
       </div>
-
       <nav class="top-links" aria-label="redes e carrinho">
-        <a class="social" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
-          <span class="icon">📱</span><span class="link-text">WhatsApp</span>
-        </a>
-        <a class="social" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <span class="icon">📸</span><span class="link-text">Instagram</span>
+        <a class="social" href="https://www.instagram.com/valmagazinecle" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
+          <span class="icon">📷</span><span class="link-text">Instagram</span>
         </a>
         <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
           🛒 <span id="cart-count" class="cart-count">0</span>
@@ -39,21 +35,7 @@
       <div class="filters-wrap" aria-label="Filtros por categoria">
         <select id="category-filter" aria-label="Filtrar por categoria">
           <option value="Todos">Todos</option>
-          <option>Bolsas</option>
-          <option>Eletrônicos</option>
-          <option>Brinquedos</option>
-          <option>Hot</option>
-          <option>Kit/Cestas</option>
-          <option>Acessórios</option>
-          <option>Canecas</option>
-          <option>Pelúcias</option>
-          <option>Avatim</option>
-          <option>Casa/Decoração</option>
-          <option>Difusores</option>
-          <option>Relógios</option>
-          <option>Utensílios</option>
-          <option>Beleza</option> <!-- NOVA CATEGORIA -->
-          <option>Outros</option>
+          <!-- categorias adicionadas via script.js -->
         </select>
       </div>
     </section>
@@ -70,9 +52,7 @@
       <button id="close-cart" aria-label="Fechar carrinho">✕</button>
     </div>
 
-    <div id="cart-items" class="cart-items" role="region" aria-live="polite">
-      <!-- items -->
-    </div>
+    <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
 
     <div class="cart-footer">
       <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
@@ -97,7 +77,6 @@
     💬
   </a>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>© <span id="year"></span> Val Magazine</div>
@@ -105,7 +84,6 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
   <script src="script.js" defer></script>
 </body>
 </html>
