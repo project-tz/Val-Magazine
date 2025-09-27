@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const matchCat=cat==="Todos"||p.category===cat;
       return matchTerm&&matchCat;
     });
+    filtered.sort((a,b)=>a.name.localeCompare(b.name)); // garante ordem alfabética
     renderProducts(filtered);
   }
 
@@ -72,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", e=>{
     const name=e.target.dataset.name;
 
-    // Quantidade no card
     if(e.target.classList.contains("qty-plus")){
       const input=document.querySelector(`input[data-name='${name}']`);
       input.value=parseInt(input.value)+1;
@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if(parseInt(input.value)>1) input.value=parseInt(input.value)-1;
     }
 
-    // Adicionar ao carrinho
     if(e.target.classList.contains("add-to-cart")){
       const prod=products.find(p=>p.name===name);
       const input=document.querySelector(`input[data-name='${name}']`);
@@ -94,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCart(true);
     }
 
-    // Comprar Agora
     if(e.target.classList.contains("buy-now")){
       const prod=products.find(p=>p.name===name);
       if(!prod) return;
@@ -102,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       window.open(`https://wa.me/5577981543503?text=${msg}`,"_blank");
     }
 
-    // Modal de imagem
     if(e.target.classList.contains("product-img")){
       modalImage.src=e.target.dataset.img;
       modalCaption.textContent=e.target.dataset.name;
@@ -110,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.setAttribute("aria-hidden","false");
     }
 
-    // Carrinho interno
     if(e.target.classList.contains("cart-qty-plus")){
       const item=cart.find(i=>i.name===name);
       if(item) item.qty++;
