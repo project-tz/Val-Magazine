@@ -18,12 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let cart = [];
 
   let products = [
-    { name: "Bolsa Casual", category: "Bolsas", price: 120.00, image: "bolsa.jpeg" },
+    { name: "Carrinho Police Security Nova Toys", category: "Brinquedos", price: 38.50, image: "carrinhopolicia.jpeg" },
     { name: "Caneca Time (Vasco)", category: "Canecas", price: 39.50, image: "canecavasco.jpeg" },
-    { name: "Creme Facial", category: "Beleza", price: 45.50, image: "creme.jpeg" },
+    { name: "Maleta Dentista Dentinho Feliz", category: "Brinquedos", price: 28.00, image: "maletadentista.jpeg" },
     { name: "Fone Bluetooth", category: "Eletrônicos", price: 220.00, image: "fone.jpeg" },
-    { name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" }
+    { name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" },
+    // Preenchendo produtos vazios para totalizar 200 campos
   ];
+
+  // Adicionando produtos vazios até 200
+  while(products.length < 200){
+    products.push({ name: "", category: "", price: 0, image: "" });
+  }
 
   products.sort((a,b)=>a.name.localeCompare(b.name));
   document.getElementById("year").textContent = new Date().getFullYear();
