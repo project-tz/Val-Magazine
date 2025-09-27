@@ -29,8 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Ordenar produtos alfabeticamente
   products.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Categorias fixas (ordenadas)
+  const categories = [
+    "Acessórios","Avatim","Beleza","Bolsas","Brinquedos","Canecas",
+    "Casa/Decoração","Difusores","Eletrônicos","Hot","Kit/Cestas",
+    "Pelúcias","Relógios","Utensílios","Outros"
+  ].sort();
+
   // Popular filtro de categorias
-  const categories = [...new Set(products.map(p => p.category))].sort();
   categories.forEach(cat => {
     const option = document.createElement("option");
     option.value = cat;
