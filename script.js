@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let cart = [];
 
-  // Produtos de exemplo
   let products = [
     { id: 1, name: "Bolsa Casual", category: "Bolsas", price: 120.00, image: "bolsa.jpeg" },
     { id: 2, name: "Caneca Time (Vasco)", category: "Canecas", price: 39.50, image: "canecavasco.jpeg" },
