@@ -8,24 +8,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- HEADER -->
   <header class="site-header">
     <div class="header-inner">
       <div class="brand">
-        <!-- logo -->
         <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
         <div class="brand-text">Val Magazine</div>
       </div>
 
       <nav class="top-links" aria-label="redes e carrinho">
         <a class="social" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
-          <img src="whatsapp.png" alt="WhatsApp" class="icon-img" />
-          <span class="link-text">WhatsApp</span>
+          <span class="icon">📱</span><span class="link-text">WhatsApp</span>
         </a>
         <a class="social" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <img src="instagram.png" alt="Instagram" class="icon-img" />
-          <span class="link-text">Instagram</span>
+          <span class="icon">📸</span><span class="link-text">Instagram</span>
         </a>
-
         <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
           🛒 <span id="cart-count" class="cart-count">0</span>
         </button>
@@ -33,12 +30,12 @@
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="container">
     <section class="controls">
       <div class="search-wrap">
         <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
       </div>
-
       <div class="filters-wrap" aria-label="Filtros por categoria">
         <select id="category-filter" aria-label="Filtrar por categoria">
           <option value="Todos">Todos</option>
@@ -55,17 +52,18 @@
           <option>Difusores</option>
           <option>Relógios</option>
           <option>Utensílios</option>
+          <option>Beleza</option> <!-- NOVA CATEGORIA -->
           <option>Outros</option>
         </select>
       </div>
     </section>
 
     <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- produtos via script.js -->
+      <!-- produtos renderizados via script.js -->
     </section>
   </main>
 
-  <!-- Carrinho lateral -->
+  <!-- CARRINHO LATERAL -->
   <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
     <div class="cart-header">
       <h3>Seu Carrinho</h3>
@@ -79,13 +77,13 @@
     <div class="cart-footer">
       <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
       <div class="cart-actions">
-        <button id="clear-cart" class="btn ghost">Limpar</button>
-        <button id="checkout" class="btn primary">Finalizar via WhatsApp</button>
+        <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
+        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
       </div>
     </div>
   </aside>
 
-  <!-- Modal de imagem -->
+  <!-- MODAL DE IMAGEM -->
   <div id="img-modal" class="img-modal" aria-hidden="true">
     <div class="img-modal-content">
       <button id="close-modal" aria-label="Fechar imagem">✕</button>
@@ -99,6 +97,7 @@
     💬
   </a>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>© <span id="year"></span> Val Magazine</div>
@@ -106,6 +105,7 @@
     </div>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="script.js" defer></script>
 </body>
 </html>
