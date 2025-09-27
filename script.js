@@ -26,13 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 5, name: "Pelúcia Urso", category: "Pelúcias", price: 55.00, image: "pelucia.jpeg" }
   ];
 
-  // Ordenar produtos alfabeticamente
   products.sort((a, b) => a.name.localeCompare(b.name));
-
-  // Atualiza ano no rodapé
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Renderiza produtos
   function renderProducts(list) {
     productsGrid.innerHTML = "";
     list.forEach(prod => {
@@ -49,7 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <input type="number" min="1" value="1" data-id="${prod.id}">
           <button class="qty-plus" data-id="${prod.id}">+</button>
         </div>
-        <button class="btn primary add-to-cart" data-id="${prod.id}">Adicionar</button>
+        <div class="card-actions">
+          <button class="btn ghost buy-now" data-id="${prod.id}">Comprar Agora</button>
+          <button class="btn primary add-to-cart" data-id="${prod.id}">Adicionar ao Carrinho</button>
+        </div>
       `;
       productsGrid.appendChild(card);
     });
@@ -57,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderProducts(products);
 
-  // Filtrar produtos
   function filterProducts() {
     const term = searchInput.value.toLowerCase();
     const cat = categoryFilter.value;
@@ -72,11 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("input", filterProducts);
   categoryFilter.addEventListener("change", filterProducts);
 
-  // Eventos do carrinho e produtos
   document.addEventListener("click", e => {
     const id = parseInt(e.target.dataset.id);
 
-    // Aumentar/diminuir no card
     if (e.target.classList.contains("qty-plus")) {
       const input = document.querySelector(`input[data-id='${id}']`);
       input.value = parseInt(input.value) + 1;
@@ -86,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
     }
 
-    // Adicionar ao carrinho
     if (e.target.classList.contains("add-to-cart")) {
       const prod = products.find(p => p.id === id);
       const input = document.querySelector(`input[data-id='${id}']`);
@@ -100,7 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCart();
     }
 
-    // Modal imagem
+    if (e.target.classList.contains("buy-now")) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      let msg = `Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${prod.price.toFixed(2)}`;
+      window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
+    }
+
     if (e.target.classList.contains("product-img")) {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
@@ -108,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.setAttribute("aria-hidden", "false");
     }
 
-    // Carrinho aumentar/diminuir
     if (e.target.classList.contains("cart-qty-plus")) {
       const item = cart.find(i => i.id === id);
       if (item) item.qty++;
@@ -119,21 +119,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (item && item.qty > 1) item.qty--;
       updateCart();
     }
-
-    // Remover item
     if (e.target.classList.contains("cart-remove")) {
       cart = cart.filter(i => i.id !== id);
       updateCart();
     }
   });
 
-  // Modal fechar
   closeModal.addEventListener("click", () => {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
   });
 
-  // Abrir/fechar carrinho
   cartBtn.addEventListener("click", () => {
     cartDrawer.classList.add("open");
     cartDrawer.setAttribute("aria-hidden", "false");
@@ -143,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cartDrawer.setAttribute("aria-hidden", "true");
   });
 
-  // Atualizar carrinho
   function updateCart() {
     cartItemsEl.innerHTML = "";
     let total = 0;
@@ -172,13 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
     cartTotalEl.textContent = total.toFixed(2);
   }
 
-  // Limpar carrinho
   clearCartBtn.addEventListener("click", () => {
     cart = [];
     updateCart();
   });
 
-  // Checkout via WhatsApp
   checkoutBtn.addEventListener("click", () => {
     if (cart.length === 0) return;
     let msg = "Olá, quero finalizar meu pedido:%0A%0A";
