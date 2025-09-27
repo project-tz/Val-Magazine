@@ -1,123 +1,177 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Val Magazine — Catálogo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="brand">
-        <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
-        <div class="brand-text">Val Magazine</div>
-      </div>
+:root {
+  --bg: #000;
+  --text: #fff;
+  --muted: #aaa;
+  --primary: #d62976;
+  --radius: 12px;
+}
 
-      <nav class="top-links" aria-label="redes e carrinho">
-        <!-- Apenas Instagram -->
-        <a class="social instagram" href="https://www.instagram.com/valmagazinecle?igsh=NjNvZzlwOWM3d2J6" target="_blank" rel="noopener" aria-label="Instagram Val Magazine">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 
-            339 319.5 339 255.9 287.7 141 224.1 141zm0 
-            189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 
-            74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 
-            74.7zm146.4-194.3c0 14.9-12.1 27-27 
-            27-14.9 0-27-12.1-27-27s12.1-27 
-            27-27 27 12.1 27 27zm76.1 27.2c-.2-54.9-14.9-103.5-54.4-143C366.7 
-            14.9 318.1.2 263.2 0H184.8c-54.9.2-103.5 
-            14.9-143 54.4C14.9 93.9.2 142.5 0 
-            197.4v78.4c.2 54.9 14.9 103.5 
-            54.4 143 39.5 39.5 88.1 54.2 
-            143 54.4h78.4c54.9-.2 103.5-14.9 
-            143-54.4 39.5-39.5 54.2-88.1 
-            54.4-143V197.4zM398.8 388c-31.4 
-            31.4-73.2 48.6-117.6 
-            48.8H166.8c-44.4-.2-86.2-17.4-117.6-48.8-31.4-31.4-48.6-73.2-48.8-117.6V241.6c.2-44.4 
-            17.4-86.2 48.8-117.6 31.4-31.4 73.2-48.6 
-            117.6-48.8h114.4c44.4.2 86.2 
-            17.4 117.6 48.8 31.4 31.4 48.6 
-            73.2 48.8 117.6v28.8c-.2 44.4-17.4 
-            86.2-48.8 117.6z"/>
-          </svg>
-          <span class="link-text">Instagram</span>
-        </a>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
 
-        <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
-          🛒 <span id="cart-count" class="cart-count">0</span>
-        </button>
-      </nav>
-    </div>
-  </header>
+.site-header {
+  padding: 12px 20px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-logo {
+  width: 50px;
+  border-radius: var(--radius);
+}
+.brand-text { font-weight: 700; font-size: 1.2rem; }
 
-  <main class="container">
-    <section class="controls">
-      <div class="search-wrap">
-        <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
-      </div>
+.top-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cart-btn {
+  background: #222;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--text);
+}
+.cart-count {
+  background: var(--primary);
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 4px;
+}
 
-      <div class="filters-wrap" aria-label="Filtros por categoria">
-        <select id="category-filter" aria-label="Filtrar por categoria">
-          <option value="Todos">Todos</option>
-          <option>Bolsas</option>
-          <option>Eletrônicos</option>
-          <option>Brinquedos</option>
-          <option>Hot</option>
-          <option>Kit/Cestas</option>
-          <option>Acessórios</option>
-          <option>Canecas</option>
-          <option>Pelúcias</option>
-          <option>Avatim</option>
-          <option>Casa/Decoração</option>
-          <option>Difusores</option>
-          <option>Relógios</option>
-          <option>Utensílios</option>
-          <option>Outros</option>
-        </select>
-      </div>
-    </section>
+/* Botão Instagram */
+.social.instagram {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: linear-gradient(45deg, #feda75, #d62976, #962fbf, #4f5bd5);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.social.instagram svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
 
-    <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- Produtos renderizados via script.js -->
-    </section>
-  </main>
+/* Produtos */
+.products-grid {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+@media (max-width: 767px) {
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 768px) {
+  .products-grid { grid-template-columns: repeat(4, 1fr); }
+}
 
-  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
-    <div class="cart-header">
-      <h3>Seu Carrinho</h3>
-      <button id="close-cart" aria-label="Fechar carrinho">✕</button>
-    </div>
-    <div id="cart-items" class="cart-items"></div>
-    <div class="cart-footer">
-      <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
-      <div class="cart-actions">
-        <button id="clear-cart" class="btn ghost">Limpar</button>
-        <button id="checkout" class="btn primary">Finalizar via WhatsApp</button>
-      </div>
-    </div>
-  </aside>
+.product-card {
+  background: #111;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.product-media img {
+  width: 100%;
+  display: block;
+}
+.product-info {
+  padding: 10px;
+}
+.product-title { font-weight: 600; font-size: 0.95rem; }
+.product-category { font-size: 0.8rem; color: var(--muted); }
+.product-bottom {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price { font-weight: 700; color: var(--primary); }
+.btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn.add { background: #333; color: #fff; }
+.btn.primary { background: var(--primary); color: #fff; }
+.btn.ghost { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
 
-  <div id="img-modal" class="img-modal" aria-hidden="true">
-    <div class="img-modal-content">
-      <button id="close-modal" aria-label="Fechar imagem">✕</button>
-      <img id="modal-image" src="" alt="">
-      <div id="modal-caption" class="modal-caption"></div>
-    </div>
-  </div>
+/* Carrinho lateral */
+.cart-drawer {
+  position: fixed;
+  top: 0; right: -100%;
+  width: 300px;
+  height: 100%;
+  background: #111;
+  transition: 0.3s;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.cart-drawer.open { right: 0; }
+.cart-header { display: flex; justify-content: space-between; }
+.cart-items { flex: 1; overflow-y: auto; margin-top: 10px; }
+.cart-footer { margin-top: 10px; }
 
-  <!-- Botão flutuante WhatsApp -->
-  <a id="whatsapp-float" class="whatsapp-float" href="https://wa.me/5577981543503" target="_blank" rel="noopener" aria-label="WhatsApp Val Magazine">
-    💬
-  </a>
+/* Modal */
+.img-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.img-modal.show { display: flex; }
+.img-modal-content {
+  background: #111;
+  padding: 20px;
+  border-radius: var(--radius);
+}
+.img-modal img { max-width: 100%; }
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div>© <span id="year"></span> Val Magazine</div>
-      <div>Todos os direitos reservados.</div>
-    </div>
-  </footer>
+/* Botão WhatsApp flutuante */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 12px;
+  border-radius: 50%;
+  text-align: center;
+}
 
-  <script src="script.js" defer></script>
-</body>
-</html>
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  border-top: 1px solid #222;
+}
