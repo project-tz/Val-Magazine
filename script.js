@@ -14,11 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalImage = document.getElementById("modal-image");
   const modalCaption = document.getElementById("modal-caption");
   const closeModal = document.getElementById("close-modal");
-
   let cart = [];
 
   // ===============================
-  // PRODUTOS (114 ITENS)
+  // PRODUTOS (JSON INCORPORADO)
   // ===============================
   let products = [
     { name: "Kit Sensual", price: 99.90, image: "hot1.jpg", category: "hot" },
@@ -113,11 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Relógio Champion Masculino Dourado", price: 148.90, image: "relogiochampmascdour.jpeg", category: "relogios" },
     { name: "Relógio Champion Masculino Prata", price: 148.90, image: "relogiochampmascprat.jpeg", category: "relogios" },
     { name: "Relógio Champion Unissex Preto", price: 148.90, image: "relogiochampunipret.jpeg", category: "relogios" }
+
   ];
 
-  // Ordena produtos por nome
+  // Ordena por nome (alfabética)
   products.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Atualiza ano (se tiver elemento #year)
   if (document.getElementById("year")) {
     document.getElementById("year").textContent = new Date().getFullYear();
   }
@@ -166,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", e => {
     const name = e.target.dataset.name;
-
     if (e.target.classList.contains("qty-plus")) {
       const input = document.querySelector(`input[data-name='${name}']`);
       if (input) input.value = parseInt(input.value) + 1;
@@ -175,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const input = document.querySelector(`input[data-name='${name}']`);
       if (input && parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
     }
-
     if (e.target.classList.contains("add-to-cart")) {
       const prod = products.find(p => p.name === name);
       const input = document.querySelector(`input[data-name='${name}']`);
@@ -186,21 +185,18 @@ document.addEventListener("DOMContentLoaded", () => {
       else cart.push({ ...prod, qty });
       updateCart(true);
     }
-
     if (e.target.classList.contains("buy-now")) {
       const prod = products.find(p => p.name === name);
       if (!prod) return;
       const msg = `Olá, quero comprar agora:%0A%0A• ${prod.name} - R$ ${Number(prod.price).toFixed(2)}`;
       window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
     }
-
     if (e.target.classList.contains("product-img")) {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
       modal.style.display = "flex";
       modal.setAttribute("aria-hidden", "false");
     }
-
     if (e.target.classList.contains("cart-qty-plus")) {
       const item = cart.find(i => i.name === name);
       if (item) item.qty++;
