@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Pelúcia Coração FIZZY", price: 45.90, image: "peluciacoracaofizz.jpeg", category: "pelucias" },
     { name: "Copo Térmico Stanley (Azul)", price: 35.00, image: "copostanleyaz.jpeg", category: "utensilios" },
     { name: "Copo Térmico para Café", price: 35.00, image: "copotermicocf.jpeg", category: "utensilios" },
-    { name: "Caixinha de Som Bluetooth GP-359 Golden Pro", price: 129.90, image: "caixasomgolden.jpeg", category: "eletronicos" },
-    { name: "Caixinha de Som Bluetooth LivStar CNN-4114Sp", price: 140.00, image: "caixasomlivstar.jpeg", category: "eletronicos" },
+    { name: "Caixinha de Som Bluetooth GP-359", price: 129.90, image: "caixasomgolden.jpeg", category: "eletronicos" },
+    { name: "Caixinha de Som Bluetooth LivStar", price: 140.00, image: "caixasomlivstar.jpeg", category: "eletronicos" },
     { name: "Fone de Ouvido Bluetooth Pro 5s", price: 44.90, image: "fonepro5s.jpeg", category: "eletronicos" },
     { name: "Laço para Cabelo (Preto)", price: 18.90, image: "lacopreto.jpeg", category: "acessorios" },
     { name: "Chaveiro Capivara", price: 13.90, image: "chaveirocapi.jpeg", category: "acessorios" },
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Meia Infantil Feminina", price: 10.00, image: "meiafeminf.jpeg", category: "acessorios" },
     { name: "Meia Infantil Masculina", price: 10.00, image: "meiamascinf.jpeg", category: "acessorios" },
     { name: "Perfume para Interiores (Flor de algodão) 200ml", price: 55.90, image: "avatimalgodao.jpeg", category: "avatim" },
-    { name: "Essência para Difusor (Avadore) 210ml", price: 68.50, image: "essenciaavadore.jpeg", category: "avatim" },
+    { name: "Essência p/ Difusor (Avadore) 210ml", price: 68.50, image: "essenciaavadore.jpeg", category: "avatim" },
     { name: "Essência Concentrada (Cascas e Folhas) 30ml", price: 47.50, image: "essenciafolhas.jpeg", category: "avatim" },
     { name: "Kit Lavabo Esférico Marrom", price: 102.90, image: "lavabomarrom.jpeg", category: "casa/decoracao" },
     { name: "Kit Lavabo Cinza", price: 89.90, image: "lavabocinza.jpeg", category: "casa/decoracao" },
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Difusor Elétrico Amadeirado OHEY DL-512", price: 84.90, image: "difamadeirado.jpeg", category: "difusores" },
     { name: "Carrinho Bombeiro Nova Toys", price: 38.50, image: "carrinhobomb.jpeg", category: "brinquedos" },
     { name: "Carrinho Monstro Faster", price: 26.50, image: "carrinhomonstro.jpeg", category: "brinquedos" },
-    { name: "Motinha de Trilha Mega Cross Kendy", price: 31.50, image: "motinhatrilha.jpeg", category: "brinquedos" },
+    { name: "Motinha de Trilha Mega Cross", price: 31.50, image: "motinhatrilha.jpeg", category: "brinquedos" },
     { name: "Balde de Praia Kendy", price: 35.00, image: "baldepraia.jpeg", category: "brinquedos" },
     { name: "Boneca Sereia Mermaid Dressup", price: 22.75, image: "bonecasereia.jpeg", category: "brinquedos" },
     { name: "Carrinho Polícia", price: 15.90, image: "carrinhopol.jpeg", category: "brinquedos" },
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Copo Térmico Stanley (Preto)", price: 35.00, image: "copostanleypreto.jpeg", category: "utensilios" },
     { name: "Copo Térmico Stanley (Rosa)", price: 35.00, image: "copostanleyrosa.jpeg", category: "utensilios" },
     { name: "Copo Térmico Stanley c/ Tampa Para Cerveja (Rosa)", price: 42.00, image: "copostanleytampa.jpeg", category: "utensilios" },
-    { name: "Garrafa Térmica c/ Led Marcador de Temperatura", price: 38.90, image: "garrafaled.jpeg", category: "utensilios" },
+    { name: "Garrafa Térmica c/ Led Marcador Temperatura", price: 38.90, image: "garrafaled.jpeg", category: "utensilios" },
     { name: "Pano de Prato Un", price: 3.50, image: "panodeprato.jpeg", category: "utensilios" },
     { name: "Coqueteleira Alumínio", price: 34.90, image: "coqueteleira.jpeg", category: "utensilios" },
     { name: "Balde de Cerveja", price: 34.90, image: "baldecerveja.jpeg", category: "utensilios" },
@@ -121,12 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Relógio Champion Unissex Preto", price: 148.90, image: "relogiochampunipret.jpeg", category: "relogios" }
   ];
 
-  // Adicionando produtos vazios até 200 (mantém compatibilidade para você preencher depois)
-  while (products.length < 200) {
-    products.push({ name: "", category: "", price: 0, image: "" });
-  }
-
-  // Ordena por nome (alfabética) — strings vazias vão pro topo, caso queira mudar esse comportamento depois fala que eu ajusto
+  // Ordena por nome (alfabética)
   products.sort((a, b) => a.name.localeCompare(b.name));
 
   // Atualiza ano (se tiver elemento #year)
