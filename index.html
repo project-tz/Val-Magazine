@@ -1,94 +1,90 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Val Magazine — Catálogo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Val Magazine — Catálogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="brand">
-        <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
-        <div class="brand-text">Val Magazine</div>
-      </div>
-      <nav class="top-links" aria-label="carrinho">
-        <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
-          🛒 <span id="cart-count" class="cart-count">0</span>
-        </button>
-      </nav>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
+      <div class="brand-text">Val Magazine</div>
     </div>
-  </header>
+    <nav class="top-links" aria-label="carrinho">
+      <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho"> 🛒 <span id="cart-count" class="cart-count">0</span> </button>
+    </nav>
+  </div>
+</header>
 
-  <!-- MAIN -->
-  <main class="container">
-    <section class="controls">
-      <div class="search-wrap">
-        <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
-      </div>
-      <div class="filters-wrap" aria-label="Filtros por categoria">
-        <select id="category-filter" aria-label="Filtrar por categoria">
-          <option value="Todos">Todos</option>
-          <option>Acessórios</option>
-          <option>Avatim</option>
-          <option>Beleza</option>
-          <option>Bolsas</option>
-          <option>Brinquedos</option>
-          <option>Canecas</option>
-          <option>Casa/Decoração</option>
-          <option>Difusores</option>
-          <option>Eletrônicos</option>
-          <option>Hot</option>
-          <option>Kit/Cestas</option>
-          <option>Pelúcias</option>
-          <option>Relógios</option>
-          <option>Utensílios</option>
-          <option>Outros</option>
-        </select>
-      </div>
-    </section>
-
-    <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- produtos renderizados via script.js -->
-    </section>
-  </main>
-
-  <!-- CARRINHO LATERAL -->
-  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
-    <div class="cart-header">
-      <h3>Seu Carrinho</h3>
-      <button id="close-cart" aria-label="Fechar carrinho">✕</button>
+<!-- MAIN -->
+<main class="container">
+  <section class="controls">
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
     </div>
-
-    <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
-
-    <div class="cart-footer">
-      <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
-      <div class="cart-actions">
-        <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
-        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
-      </div>
+    <div class="filters-wrap" aria-label="Filtros por categoria">
+      <select id="category-filter" aria-label="Filtrar por categoria">
+        <option value="Todos">Todos</option>
+        <option>Acessórios</option>
+        <option>Avatim</option>
+        <option>Beleza</option>
+        <option>Bolsas</option>
+        <option>Brinquedos</option>
+        <option>Canecas</option>
+        <option>Casa/Decoração</option>
+        <option>Difusores</option>
+        <option>Eletrônicos</option>
+        <option>Hot</option>
+        <option>Kit/Cestas</option>
+        <option>Pelúcias</option>
+        <option>Relógios</option>
+        <option>Utensílios</option>
+        <option>Outros</option>
+      </select>
     </div>
-  </aside>
+  </section>
 
-  <!-- MODAL DE IMAGEM -->
-  <div id="img-modal" class="img-modal" aria-hidden="true">
-    <div class="img-modal-content">
-      <button id="close-modal" aria-label="Fechar imagem">✕</button>
-      <img id="modal-image" src="" alt="">
-      <div id="modal-caption" class="modal-caption"></div>
+  <section id="products-grid" class="products-grid" aria-live="polite">
+    <!-- produtos renderizados via script.js -->
+  </section>
+</main>
+
+<!-- CARRINHO LATERAL -->
+<aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
+  <div class="cart-header">
+    <h3>Seu Carrinho</h3>
+    <button id="close-cart" aria-label="Fechar carrinho">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
+  <div class="cart-footer">
+    <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
+    <div class="cart-actions">
+      <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
+      <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
     </div>
   </div>
+</aside>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div>© <span id="year"></span> Val Magazine</div>
-    <div>Todos os direitos reservados.</div>
-  </footer>
+<!-- MODAL DE IMAGEM -->
+<div id="img-modal" class="img-modal" aria-hidden="true">
+  <div class="img-modal-content">
+    <button id="close-modal" aria-label="Fechar imagem">✕</button>
+    <img id="modal-image" src="" alt="">
+    <div id="modal-caption" class="modal-caption"></div>
+  </div>
+</div>
 
-  <script src="script.js" defer></script>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div>© <span id="year"></span> Val Magazine</div>
+  <div>Todos os direitos reservados.</div>
+</footer>
+
+<script src="script.js" defer></script>
 </body>
 </html>
