@@ -120,8 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
   { name: "Relógio Champion Masculino Dourado", price: 148.90, image: "relogiochampmascdour.jpeg", category: "Relógios" },
   { name: "Relógio Champion Masculino Prata", price: 148.90, image: "relogiochampmascprat.jpeg", category: "Relógios" },
   { name: "Relógio Champion Unissex Preto", price: 148.90, image: "relogiochampunipret.jpeg", category: "Relógios" }
-];
-
   ];
 
   // Ordena produtos alfabeticamente
