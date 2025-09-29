@@ -34,7 +34,7 @@ main.container{
   top:0;
   left:0;
   width:100%;
-  z-index:1000;
+  z-index:1000; /* menor que o carrinho */
 }
 .header-inner{
   max-width:1200px;
@@ -60,7 +60,7 @@ main.container{
   top:88px;
   left:0;
   width:100%;
-  z-index:999;
+  z-index:999; /* abaixo do carrinho */
   padding:16px 20px;
   border-bottom:1px solid rgba(255,255,255,0.03);
 }
@@ -155,7 +155,7 @@ main.container{
   color:#000;
   box-shadow:-4px 0 10px rgba(0,0,0,0.4);
   transition:right .3s ease;
-  z-index:1100; /* maior que header */
+  z-index:2000; /* maior que header, sempre sobrepondo */
   display:flex;
   flex-direction:column;
 }
