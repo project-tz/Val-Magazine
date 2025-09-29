@@ -19,15 +19,21 @@ body{
 }
 
 /* MAIN CONTAINER FLEX */
-main.container{ flex:1; padding:16px 20px; }
+main.container{ 
+  flex:1; 
+  padding:16px 20px; 
+  margin-top:88px; /* espaço para header fixo */
+}
 
 /* HEADER */
 .site-header{
   background:#000;
   border-bottom:1px solid rgba(255,255,255,0.03);
-  position:sticky;
+  position:fixed; /* fixo no topo */
   top:0;
-  z-index:60;
+  left:0;
+  width:100%;
+  z-index:1000; /* sempre acima de tudo */
 }
 .header-inner{
   max-width:1200px;
