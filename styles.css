@@ -117,17 +117,17 @@ main.container {
   border: 1px solid rgba(255,255,255,0.03);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* garante alinhamento interno */
+  justify-content: space-between;
   gap: 10px;
   transition: transform .25s, box-shadow .25s;
   cursor: pointer;
-  height: 100%;
+  height: 100%; /* garante altura uniforme */
 }
 .product-img-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px; /* altura fixa para padronizar */
+  height: 200px;
   overflow: hidden;
   border-radius: 12px;
 }
@@ -179,11 +179,18 @@ main.container {
   transform: scale(1.2);
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
+
+/* CARD ACTIONS - BOTÕES ALINHADOS */
 .card-actions {
   display: flex;
   gap: 8px;
   margin-top: auto;
   flex-wrap: wrap;
+  justify-content: space-between;
+}
+.card-actions .btn {
+  flex: 1 1 48%;
+  text-align: center;
 }
 
 /* BOTÕES */
@@ -224,7 +231,7 @@ main.container {
   color: #000;
   box-shadow: -4px 0 10px rgba(0,0,0,0.4);
   transition: right .3s ease;
-  z-index: 2000; /* sobrepõe header e filtros */
+  z-index: 2000;
   display: flex;
   flex-direction: column;
 }
@@ -322,20 +329,6 @@ main.container {
   cursor: pointer;
 }
 
-/* BOTÃO FECHAR MODAL - GLOBAL (PC e MOBILE) */
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 22px;
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-  padding: 6px;
-  cursor: pointer;
-  color: #000;
-}
-
 /* FOOTER */
 .site-footer {
   font-size: 0.65rem;
@@ -352,11 +345,9 @@ main.container {
     gap: 8px;
     padding: 10px 16px;
   }
-
   main.container {
-    margin-top: 220px; /* espaço maior para header + filtros fixos */
+    margin-top: 220px;
   }
-
   .search-wrap, #search, .filters-wrap { width: 100%; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   #search { font-size: 0.9rem; padding: 10px 12px; }
