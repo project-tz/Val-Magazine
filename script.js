@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // PRODUTOS
   // ===============================
   let products = [
-  const products = [
   { name: "Kit Sensual", price: 99.90, image: "hot1.jpg", category: "Hot" },
   { name: "Kit Dia dos Pais", price: 116.90, image: "cestapais.jpeg", category: "Cestas" },
   { name: "Kit Natura TodoDia", price: 184.90, image: "kitnaturatd.jpeg", category: "Cestas" },
