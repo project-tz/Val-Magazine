@@ -127,15 +127,14 @@ main.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px; /* reduzido para computador */
+  height: 200px;
   overflow: hidden;
   border-radius: 12px;
 }
 .product-img {
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
-  object-fit: contain; /* ajusta sem cortar */
+  object-fit: cover;
   border-radius: 12px;
   transition: transform .25s;
 }
@@ -253,9 +252,10 @@ main.container {
   flex-direction: column;
   gap: 12px;
 }
+/* Alinhamento uniforme dentro do carrinho */
 .cart-item {
   display: grid;
-  grid-template-columns: 50px 1fr 28px; /* imagem, nome+preço, botão */
+  grid-template-columns: 60px 1fr auto; /* imagem | texto | botão */
   align-items: center;
   gap: 8px;
 }
@@ -307,12 +307,14 @@ main.container {
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 3000; /* garante que fique acima do header */
 }
 .img-modal-content {
   position: relative;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 500px;  /* tamanho máximo no desktop */
+  max-height: 600px; /* tamanho máximo no desktop */
+  width: 90%;
+  height: auto;
 }
 .img-modal-content img {
   width: 100%;
@@ -320,21 +322,15 @@ main.container {
   border-radius: 12px;
 }
 .img-modal-content button {
-  position: fixed;       /* fixa na tela */
-  top: 16px;
-  right: 16px;
-  width: 40px;           /* maior tamanho */
-  height: 40px;
-  font-size: 1.2rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: #fff;
   border: none;
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
-  z-index: 5000;         /* acima do header fixo */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 3500;
 }
 
 /* FOOTER */
