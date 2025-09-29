@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalCaption = document.getElementById("modal-caption");
   const closeModal = document.getElementById("close-modal");
 
-  let cart = [];
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   // ===============================
   // PRODUTOS
@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
   { name: "Relógio Champion Unissex Preto", price: 148.90, image: "relogiochampunipret.jpeg", category: "Relógios" }
   ];
 
-  // Ordena produtos alfabeticamente
   products.sort((a, b) => a.name.localeCompare(b.name));
 
   // ===============================
@@ -165,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
   categoryFilter.addEventListener("change", filterProducts);
 
   // ===============================
-  // INTERAÇÕES DE QUANTIDADE E CARRINHO
+  // INTERAÇÕES
   // ===============================
   document.addEventListener("click", e => {
     const name = e.target.dataset.name;
@@ -200,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
       modalImage.src = e.target.dataset.img;
       modalCaption.textContent = e.target.dataset.name;
       modal.style.display = "flex";
-      modal.setAttribute("aria-hidden", "false");
     }
 
     if (e.target.classList.contains("cart-qty-plus")) {
@@ -223,17 +221,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   closeModal.addEventListener("click", () => {
     modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
   });
 
   cartBtn.addEventListener("click", () => {
     cartDrawer.classList.add("open");
-    cartDrawer.setAttribute("aria-hidden", "false");
   });
 
   closeCartBtn.addEventListener("click", () => {
     cartDrawer.classList.remove("open");
-    cartDrawer.setAttribute("aria-hidden", "true");
   });
 
   clearCartBtn.addEventListener("click", () => {
@@ -264,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
       div.className = "cart-item";
       div.innerHTML = `
         <img src="${item.image}" alt="${item.name}">
-        <div>${item.name}</div>
+        <div style="flex:1">${item.name}</div>
         <div>
           <button class="cart-qty-minus" data-name="${item.name}">-</button>
           ${item.qty}
@@ -279,9 +274,15 @@ document.addEventListener("DOMContentLoaded", () => {
     cartCount.textContent = cart.reduce((acc,i)=>acc+i.qty,0);
     cartTotalEl.textContent = total.toFixed(2);
 
+    // salva no localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
     if (animate) {
       cartCount.classList.add("bounce");
       setTimeout(() => cartCount.classList.remove("bounce"), 300);
     }
   }
+
+  // Renderiza o carrinho salvo no LocalStorage ao carregar
+  updateCart();
 });
