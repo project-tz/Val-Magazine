@@ -22,7 +22,7 @@ body{
 main.container{ 
   flex:1; 
   padding:16px 20px; 
-  margin-top:88px; /* espaço para header fixo */
+  margin-top:160px; /* espaço para header + barra de filtros */
 }
 
 /* HEADER */
@@ -48,34 +48,21 @@ main.container{
 .brand-logo{width:56px;height:56px;object-fit:contain;border-radius:8px}
 .brand-text{font-weight:700;font-size:1.25rem;color:#fff}
 
-/* CART BUTTON (ÍCONE) */
-.cart-btn{
-  background:#e0e0e0;
-  color:#000;
-  border:none;
-  padding:8px 12px;
-  border-radius:12px;
-  cursor:pointer;
+/* CONTROLS FIXO (barra de pesquisa e filtros) */
+.controls {
   display:flex;
-  gap:8px;
-  align-items:center;
-  transition:all .2s;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  background:#000; /* mesma cor do header */
+  position:fixed;
+  top:88px; /* altura do header */
+  left:0;
+  width:100%;
+  z-index:999; /* acima do conteúdo */
+  padding:16px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
 }
-.cart-btn:hover{
-  background:#cfcfcf;
-  transform:scale(1.05);
-}
-.cart-count{
-  background:#fff;
-  color:#000;
-  padding:2px 7px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:0.8rem;
-}
-
-/* CONTROLS */
-.controls{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;margin-bottom:18px}
 .search-wrap{flex:1;min-width:180px}
 #search{
   width:100%;
