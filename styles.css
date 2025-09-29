@@ -28,7 +28,7 @@ html, body {
 main.container {
   flex: 1;
   padding: 16px 20px;
-  margin-top: 160px; /* espaço para header + barra de filtros */
+  margin-top: 160px; /* espaço para header + barra de filtros (desktop) */
 }
 
 /* HEADER FIXO */
@@ -332,16 +332,30 @@ main.container {
 
 /* RESPONSIVO MOBILE */
 @media (max-width: 599px) {
+  /* Corrige filtros sobrepondo */
   .controls {
+    position: static;
     flex-direction: column;
     gap: 8px;
     padding: 10px 16px;
     width: 100%;
   }
+
+  /* Ajusta o espaço do main */
+  main.container {
+    margin-top: 220px; /* espaço maior para header + filtros empilhados */
+  }
+
   .search-wrap, #search, .filters-wrap { width: 100%; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   #search { font-size: 0.9rem; padding: 10px 12px; }
   .filters-wrap select { font-size: 0.9rem; padding: 10px; }
+
+  /* Telas muito estreitas (ex: iPhone SE) */
+  @media (max-width: 399px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
+
   .modal-close {
     position: absolute;
     top: 10px;
