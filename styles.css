@@ -121,20 +121,21 @@ main.container {
   gap: 10px;
   transition: transform .25s, box-shadow .25s;
   cursor: pointer;
-  height: 100%; /* garante altura uniforme */
+  height: 100%;
 }
 .product-img-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px; /* ajustado para desktop menor corte */
+  height: 180px; /* reduzido para computador */
   overflow: hidden;
   border-radius: 12px;
 }
 .product-img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: 100%;
-  object-fit: contain; /* mantém proporção sem cortar */
+  object-fit: contain; /* ajusta sem cortar */
   border-radius: 12px;
   transition: transform .25s;
 }
@@ -254,10 +255,9 @@ main.container {
 }
 .cart-item {
   display: grid;
-  grid-template-columns: 60px 1fr 60px; /* img | info | btn */
+  grid-template-columns: 50px 1fr 28px; /* imagem, nome+preço, botão */
   align-items: center;
   gap: 8px;
-  word-break: break-word; /* garante que o nome longo não quebre layout */
 }
 .cart-item img {
   width: 50px;
@@ -311,29 +311,27 @@ main.container {
 }
 .img-modal-content {
   position: relative;
-  max-width: 400px;
-  max-height: 450px;
-  z-index: 3000; /* acima do header */
+  max-width: 90%;
+  max-height: 90%;
 }
 .img-modal-content img {
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* mantém proporção sem cortar */
+  height: auto;
   border-radius: 12px;
 }
 .img-modal-content button {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 36px;
-  height: 36px;
-  font-size: 1.1rem;
+  position: fixed;       /* fixa na tela */
+  top: 16px;
+  right: 16px;
+  width: 40px;           /* maior tamanho */
+  height: 40px;
+  font-size: 1.2rem;
   background: #fff;
   border: none;
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
-  z-index: 4000; /* garante que fique sobreposto a tudo */
+  z-index: 5000;         /* acima do header fixo */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -362,18 +360,6 @@ main.container {
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   #search { font-size: 0.9rem; padding: 10px 12px; }
   .filters-wrap select { font-size: 0.9rem; padding: 10px; }
-
-  .img-modal-content {
-    max-width: 90%;
-    max-height: 90%;
-  }
-  .img-modal-content button {
-    top: -10px;
-    right: -10px;
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-  }
 
   @media (max-width: 399px) {
     .products-grid { grid-template-columns: 1fr; }
