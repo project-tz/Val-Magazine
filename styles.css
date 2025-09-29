@@ -25,15 +25,15 @@ main.container{
   margin-top:160px; /* espaço para header + barra de filtros */
 }
 
-/* HEADER */
+/* HEADER FIXO */
 .site-header{
   background:#000;
   border-bottom:1px solid rgba(255,255,255,0.03);
-  position:fixed; /* fixo no topo */
+  position:fixed;
   top:0;
   left:0;
   width:100%;
-  z-index:1000; /* sempre acima de tudo */
+  z-index:1000;
 }
 .header-inner{
   max-width:1200px;
@@ -48,7 +48,7 @@ main.container{
 .brand-logo{width:56px;height:56px;object-fit:contain;border-radius:8px}
 .brand-text{font-weight:700;font-size:1.25rem;color:#fff}
 
-/* CONTROLS FIXO (barra de pesquisa e filtros) */
+/* BARRA DE PESQUISA + FILTROS FIXA */
 .controls {
   display:flex;
   gap:12px;
