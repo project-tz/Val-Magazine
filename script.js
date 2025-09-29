@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalCaption = document.getElementById("modal-caption");
   const closeModal = document.getElementById("close-modal");
 
-  let cart = [];
+  // Recupera carrinho do localStorage
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   // ===============================
   // PRODUTOS
@@ -117,30 +118,22 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // Ordena produtos alfabeticamente
-  products.sort((a, b) => a.name.localeCompare(b.name));
+  products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
 
   // ===============================
-  // RENDERIZAÇÃO DE PRODUTOS
+  // RENDERIZAÇÃO
   // ===============================
   function renderProducts(list) {
     productsGrid.innerHTML = "";
-    list.forEach(prod => {
+    list.forEach(product => {
       const card = document.createElement("div");
       card.className = "product-card";
       card.innerHTML = `
-        <div class="product-img-wrap">
-          <img src="${prod.image}" alt="${prod.name}" class="product-img" data-name="${prod.name}" data-img="${prod.image}">
-        </div>
-        <h4 class="product-title">${prod.name}</h4>
-        <p class="product-price">R$ ${Number(prod.price).toFixed(2)}</p>
-        <div class="quantity-select">
-          <button class="qty-minus" data-name="${prod.name}">-</button>
-          <input type="number" min="1" value="1" data-name="${prod.name}">
-          <button class="qty-plus" data-name="${prod.name}">+</button>
-        </div>
-        <div class="card-actions">
-          <button class="btn ghost buy-now" data-name="${prod.name}">Comprar Agora</button>
-          <button class="btn primary add-to-cart" data-name="${prod.name}">Adicionar ao Carrinho</button>
+        <img src="${product.image}" alt="${product.name}" class="product-image">
+        <div class="product-info">
+          <h4 class="product-name">${product.name}</h4>
+          <p class="product-price">R$ ${product.price.toFixed(2)}</p>
+          <button class="btn add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Adicionar</button>
         </div>
       `;
       productsGrid.appendChild(card);
@@ -153,11 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // FILTRO E BUSCA
   // ===============================
   function filterProducts() {
-    const term = searchInput.value.toLowerCase();
-    const cat = categoryFilter.value;
-    let filtered = products.filter(p => p.name.toLowerCase().includes(term));
-    if (cat !== "Todos") filtered = filtered.filter(p => p.category === cat);
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
+    const search = searchInput.value.toLowerCase();
+    const category = categoryFilter.value;
+    const filtered = products.filter(p => {
+      const matchesCategory = category === "Todos" || p.category === category;
+      const matchesSearch = p.name.toLowerCase().includes(search);
+      return matchesCategory && matchesSearch;
+    });
     renderProducts(filtered);
   }
 
@@ -165,113 +160,114 @@ document.addEventListener("DOMContentLoaded", () => {
   categoryFilter.addEventListener("change", filterProducts);
 
   // ===============================
-  // INTERAÇÕES DE QUANTIDADE E CARRINHO
+  // CARRINHO
   // ===============================
-  document.addEventListener("click", e => {
-    const name = e.target.dataset.name;
-    if (e.target.classList.contains("qty-plus")) {
-      const input = document.querySelector(`input[data-name="${name}"]`);
-      input.value = parseInt(input.value) + 1;
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    cartItemsEl.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price * item.qty;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">R$ ${item.price.toFixed(2)}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn minus" data-index="${index}">-</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn plus" data-index="${index}">+</button>
+          </div>
+        </div>
+      `;
+      cartItemsEl.appendChild(div);
+    });
+    cartCount.textContent = cart.reduce((acc, item) => acc + item.qty, 0);
+    cartTotalEl.textContent = total.toFixed(2);
+  }
+
+  function addToCart(product) {
+    const existing = cart.find(item => item.name === product.name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ ...product, qty: 1 });
     }
-    if (e.target.classList.contains("qty-minus")) {
-      const input = document.querySelector(`input[data-name="${name}"]`);
-      if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
-    }
+    saveCart();
+  }
+
+  productsGrid.addEventListener("click", (e) => {
     if (e.target.classList.contains("add-to-cart")) {
-      const prod = products.find(p => p.name === name);
-      const input = document.querySelector(`input[data-name="${name}"]`);
-      const qty = input ? parseInt(input.value) : 1;
-      const existing = cart.find(i => i.name === name);
-      if (existing) existing.qty += qty;
-      else cart.push({ ...prod, qty });
-      updateCart(true);
-    }
-    if (e.target.classList.contains("buy-now")) {
-      const prod = products.find(p => p.name === name);
-      const msg = `Olá, quero comprar agora:%0A• ${prod.name} - R$ ${Number(prod.price).toFixed(2)}`;
-      window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
-    }
-    if (e.target.classList.contains("product-img")) {
-      modalImage.src = e.target.dataset.img;
-      modalCaption.textContent = e.target.dataset.name;
+      const { name, price, image } = e.target.dataset;
+      addToCart({ name, price: parseFloat(price), image });
+    } else if (e.target.classList.contains("product-image")) {
+      modalImage.src = e.target.src;
+      modalCaption.textContent = e.target.alt;
       modal.style.display = "flex";
       modal.setAttribute("aria-hidden", "false");
     }
-    if (e.target.classList.contains("cart-qty-plus")) {
-      const item = cart.find(i => i.name === name);
-      item.qty++;
-      updateCart();
-    }
-    if (e.target.classList.contains("cart-qty-minus")) {
-      const item = cart.find(i => i.name === name);
-      if (item.qty > 1) item.qty--;
-      updateCart();
-    }
-    if (e.target.classList.contains("cart-remove")) {
-      cart = cart.filter(i => i.name !== name);
-      updateCart();
+  });
+
+  cartItemsEl.addEventListener("click", (e) => {
+    if (e.target.classList.contains("plus") || e.target.classList.contains("minus")) {
+      const index = e.target.dataset.index;
+      if (e.target.classList.contains("plus")) cart[index].qty += 1;
+      else {
+        cart[index].qty -= 1;
+        if (cart[index].qty <= 0) cart.splice(index, 1);
+      }
+      saveCart();
     }
   });
 
+  clearCartBtn.addEventListener("click", () => {
+    cart = [];
+    saveCart();
+  });
+
+  checkoutBtn.addEventListener("click", () => {
+    if (cart.length === 0) return alert("Carrinho vazio!");
+    let message = "Olá, quero comprar:\n";
+    cart.forEach(item => {
+      message += `- ${item.qty}x ${item.name} (R$ ${item.price.toFixed(2)})\n`;
+    });
+    const url = `https://wa.me/5599999999999?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  });
+
+  cartBtn.addEventListener("click", () => {
+    cartDrawer.style.transform = "translateX(0)";
+    cartDrawer.setAttribute("aria-hidden", "false");
+  });
+
+  closeCartBtn.addEventListener("click", () => {
+    cartDrawer.style.transform = "translateX(100%)";
+    cartDrawer.setAttribute("aria-hidden", "true");
+  });
+
+  // ===============================
+  // MODAL IMAGEM
+  // ===============================
   closeModal.addEventListener("click", () => {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
   });
 
-  cartBtn.addEventListener("click", () => {
-    cartDrawer.classList.add("open");
-    cartDrawer.setAttribute("aria-hidden", "false");
-  });
-
-  closeCartBtn.addEventListener("click", () => {
-    cartDrawer.classList.remove("open");
-    cartDrawer.setAttribute("aria-hidden", "true");
-  });
-
-  clearCartBtn.addEventListener("click", () => {
-    cart = [];
-    updateCart(true);
-  });
-
-  checkoutBtn.addEventListener("click", () => {
-    if (!cart.length) return;
-    let msg = "Olá, quero finalizar meu pedido:%0A%0A";
-    cart.forEach(i => {
-      msg += `• ${i.name} (x${i.qty}) - R$ ${(i.price*i.qty).toFixed(2)}%0A`;
-    });
-    msg += `%0ATotal: R$ ${cartTotalEl.textContent}`;
-    window.open(`https://wa.me/5577981543503?text=${msg}`, "_blank");
-  });
-
-  // ===============================
-  // FUNÇÃO DE ATUALIZAÇÃO DO CARRINHO
-  // ===============================
-  function updateCart(animate = false) {
-    cartItemsEl.innerHTML = "";
-    cart.sort((a, b) => a.name.localeCompare(b.name));
-    let total = 0;
-    cart.forEach(item => {
-      total += item.price * item.qty;
-      const div = document.createElement("div");
-      div.className = "cart-item";
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div>${item.name}</div>
-        <div>
-          <button class="cart-qty-minus" data-name="${item.name}">-</button>
-          ${item.qty}
-          <button class="cart-qty-plus" data-name="${item.name}">+</button>
-        </div>
-        <div>R$ ${(item.price*item.qty).toFixed(2)}</div>
-        <button class="cart-remove" data-name="${item.name}">✕</button>
-      `;
-      cartItemsEl.appendChild(div);
-    });
-    cartCount.textContent = cart.reduce((acc,i)=>acc+i.qty,0);
-    cartTotalEl.textContent = total.toFixed(2);
-    if (animate) {
-      cartCount.classList.add("bounce");
-      setTimeout(() => cartCount.classList.remove("bounce"), 300);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
     }
-  }
+  });
+
+  // ===============================
+  // INICIALIZAÇÃO
+  // ===============================
+  updateCartUI();
 });
