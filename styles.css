@@ -121,7 +121,7 @@ main.container {
   gap: 10px;
   transition: transform .25s, box-shadow .25s;
   cursor: pointer;
-  height: 100%;
+  height: 100%; /* garante altura uniforme */
 }
 .product-img-wrap {
   display: flex;
@@ -252,12 +252,13 @@ main.container {
   flex-direction: column;
   gap: 12px;
 }
-/* Alinhamento uniforme dentro do carrinho */
+/* CORRIGIDO: CARRINHO ORGANIZADO */
 .cart-item {
   display: grid;
-  grid-template-columns: 60px 1fr auto; /* imagem | texto | botão */
-  align-items: center;
+  grid-template-columns: 50px 1fr 28px;
   gap: 8px;
+  align-items: center;
+  word-break: break-word;
 }
 .cart-item img {
   width: 50px;
@@ -296,7 +297,7 @@ main.container {
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-/* MODAL */
+/* MODAL - IMAGEM MENOR NO DESKTOP */
 .img-modal {
   position: fixed;
   top: 0;
@@ -307,18 +308,17 @@ main.container {
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 3000; /* garante que fique acima do header */
+  z-index: 100;
 }
 .img-modal-content {
   position: relative;
-  max-width: 500px;  /* tamanho máximo no desktop */
-  max-height: 600px; /* tamanho máximo no desktop */
-  width: 90%;
-  height: auto;
+  max-width: 400px; /* menor no desktop */
+  max-height: 450px; /* limite para não cortar */
 }
 .img-modal-content img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain; /* garante que não corte */
   border-radius: 12px;
 }
 .img-modal-content button {
@@ -330,7 +330,6 @@ main.container {
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
-  z-index: 3500;
 }
 
 /* FOOTER */
@@ -356,6 +355,12 @@ main.container {
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   #search { font-size: 0.9rem; padding: 10px 12px; }
   .filters-wrap select { font-size: 0.9rem; padding: 10px; }
+
+  /* MODAL RESPONSIVO MOBILE */
+  .img-modal-content {
+    max-width: 90%;
+    max-height: 90%;
+  }
 
   @media (max-width: 399px) {
     .products-grid { grid-template-columns: 1fr; }
