@@ -127,14 +127,14 @@ main.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 180px; /* ajustado para desktop menor corte */
   overflow: hidden;
   border-radius: 12px;
 }
 .product-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* mantém proporção sem cortar */
   border-radius: 12px;
   transition: transform .25s;
 }
@@ -252,13 +252,12 @@ main.container {
   flex-direction: column;
   gap: 12px;
 }
-/* CORRIGIDO: CARRINHO ORGANIZADO */
 .cart-item {
   display: grid;
-  grid-template-columns: 50px 1fr 28px;
-  gap: 8px;
+  grid-template-columns: 60px 1fr 60px; /* img | info | btn */
   align-items: center;
-  word-break: break-word;
+  gap: 8px;
+  word-break: break-word; /* garante que o nome longo não quebre layout */
 }
 .cart-item img {
   width: 50px;
@@ -297,7 +296,7 @@ main.container {
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-/* MODAL - IMAGEM MENOR NO DESKTOP */
+/* MODAL */
 .img-modal {
   position: fixed;
   top: 0;
@@ -312,24 +311,32 @@ main.container {
 }
 .img-modal-content {
   position: relative;
-  max-width: 400px; /* menor no desktop */
-  max-height: 450px; /* limite para não cortar */
+  max-width: 400px;
+  max-height: 450px;
+  z-index: 3000; /* acima do header */
 }
 .img-modal-content img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* garante que não corte */
+  object-fit: contain; /* mantém proporção sem cortar */
   border-radius: 12px;
 }
 .img-modal-content button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -10px;
+  right: -10px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
   background: #fff;
   border: none;
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
+  z-index: 4000; /* garante que fique sobreposto a tudo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* FOOTER */
@@ -356,10 +363,16 @@ main.container {
   #search { font-size: 0.9rem; padding: 10px 12px; }
   .filters-wrap select { font-size: 0.9rem; padding: 10px; }
 
-  /* MODAL RESPONSIVO MOBILE */
   .img-modal-content {
     max-width: 90%;
     max-height: 90%;
+  }
+  .img-modal-content button {
+    top: -10px;
+    right: -10px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
   }
 
   @media (max-width: 399px) {
