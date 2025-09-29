@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===============================
   let products = [
   { name: "Kit Sensual", price: 99.90, image: "hot1.jpg", category: "Hot" },
-  { name: "Kit Dia dos Pais", price: 116.90, image: "cestapais.jpeg", category: "Cestas" },
-  { name: "Kit Natura TodoDia", price: 184.90, image: "kitnaturatd.jpeg", category: "Cestas" },
+  { name: "Kit Dia dos Pais", price: 116.90, image: "cestapais.jpeg", category: "Kit/Cestas" },
+  { name: "Kit Natura TodoDia", price: 184.90, image: "kitnaturatd.jpeg", category: "Kit/Cestas" },
   { name: "Caneca Time (Flamengo)", price: 39.50, image: "canecaflame.jpeg", category: "Canecas" },
   { name: "Caneca Time (Corinthians)", price: 39.50, image: "canecacorint.jpeg", category: "Canecas" },
   { name: "Urso de Pelúcia Médio", price: 38.90, image: "ursopeluciap.jpeg", category: "Pelúcias" },
