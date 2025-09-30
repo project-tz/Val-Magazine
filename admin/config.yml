@@ -1,9 +1,9 @@
 backend:
   name: git-gateway
-  branch: main  # ou master se for seu branch
+  branch: main  # use "main" ou "master", conforme seu branch no GitHub
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets/uploads"      # onde as imagens vão ser salvas no repositório
+public_folder: "/assets/uploads"    # caminho público das imagens no site
 
 collections:
   - name: "produtos"
