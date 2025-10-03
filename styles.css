@@ -356,8 +356,4 @@ main.container {
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   #search { font-size: 0.9rem; padding: 10px 12px; }
   .filters-wrap select { font-size: 0.9rem; padding: 10px; }
-
-  @media (max-width: 399px) {
-    .products-grid { grid-template-columns: 1fr; }
-  }
 }
