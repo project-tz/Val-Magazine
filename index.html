@@ -1,90 +1,92 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Val Magazine — Catálogo</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Val Magazine — Catálogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="brand">
-      <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
-      <div class="brand-text">Val Magazine</div>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="logovalfundo.jpg.png" alt="Val Magazine" class="brand-logo" />
+        <div class="brand-text">Val Magazine</div>
+      </div>
+      <nav class="top-links" aria-label="carrinho">
+        <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho">
+          🛒 <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </nav>
     </div>
-    <nav class="top-links" aria-label="carrinho">
-      <button id="cart-btn" class="cart-btn" aria-label="Abrir carrinho"> 🛒 <span id="cart-count" class="cart-count">0</span> </button>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<!-- MAIN -->
-<main class="container">
-  <section class="controls">
-    <div class="search-wrap">
-      <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+  <!-- MAIN -->
+  <main class="container">
+    <section class="controls">
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+      </div>
+      <div class="filters-wrap" aria-label="Filtros por categoria">
+        <select id="category-filter" aria-label="Filtrar por categoria">
+          <option value="Todos">Todos</option>
+          <option value="Acessórios">Acessórios</option>
+          <option value="Avatim">Avatim</option>
+          <option value="Beleza">Beleza</option>
+          <option value="Bolsas">Bolsas</option>
+          <option value="Brinquedos">Brinquedos</option>
+          <option value="Canecas">Canecas</option>
+          <option value="Casa/Decoração">Casa/Decoração</option>
+          <option value="Difusores">Difusores</option>
+          <option value="Eletrônicos">Eletrônicos</option>
+          <option value="Hot">Hot</option>
+          <option value="Kit/Cestas">Kit/Cestas</option>
+          <option value="Pelúcias">Pelúcias</option>
+          <option value="Relógios">Relógios</option>
+          <option value="Utensílios">Utensílios</option>
+          <option value="Outros">Outros</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="products-grid" class="products-grid" aria-live="polite">
+      <!-- produtos renderizados via script.js -->
+    </section>
+  </main>
+
+  <!-- CARRINHO LATERAL -->
+  <aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
+    <div class="cart-header">
+      <h3>Seu Carrinho</h3>
+      <button id="close-cart" aria-label="Fechar carrinho">✕</button>
     </div>
-    <div class="filters-wrap" aria-label="Filtros por categoria">
-      <select id="category-filter" aria-label="Filtrar por categoria">
-        <option value="Todos">Todos</option>
-        <option>Acessórios</option>
-        <option>Avatim</option>
-        <option>Beleza</option>
-        <option>Bolsas</option>
-        <option>Brinquedos</option>
-        <option>Canecas</option>
-        <option>Casa/Decoração</option>
-        <option>Difusores</option>
-        <option>Eletrônicos</option>
-        <option>Hot</option>
-        <option>Kit/Cestas</option>
-        <option>Pelúcias</option>
-        <option>Relógios</option>
-        <option>Utensílios</option>
-        <option>Outros</option>
-      </select>
+    <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
+      <div class="cart-actions">
+        <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
+        <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
+      </div>
     </div>
-  </section>
+  </aside>
 
-  <section id="products-grid" class="products-grid" aria-live="polite">
-    <!-- produtos renderizados via script.js -->
-  </section>
-</main>
-
-<!-- CARRINHO LATERAL -->
-<aside id="cart-drawer" class="cart-drawer" aria-hidden="true" aria-label="Carrinho">
-  <div class="cart-header">
-    <h3>Seu Carrinho</h3>
-    <button id="close-cart" aria-label="Fechar carrinho">✕</button>
-  </div>
-  <div id="cart-items" class="cart-items" role="region" aria-live="polite"></div>
-  <div class="cart-footer">
-    <div class="cart-total">Total: R$ <span id="cart-total">0.00</span></div>
-    <div class="cart-actions">
-      <button id="clear-cart" class="btn ghost" aria-label="Limpar carrinho">Limpar</button>
-      <button id="checkout" class="btn primary" aria-label="Finalizar via WhatsApp">Finalizar via WhatsApp</button>
+  <!-- MODAL DE IMAGEM -->
+  <div id="img-modal" class="img-modal" aria-hidden="true">
+    <div class="img-modal-content">
+      <button id="close-modal" aria-label="Fechar imagem">✕</button>
+      <img id="modal-image" src="" alt="">
+      <div id="modal-caption" class="modal-caption"></div>
     </div>
   </div>
-</aside>
 
-<!-- MODAL DE IMAGEM -->
-<div id="img-modal" class="img-modal" aria-hidden="true">
-  <div class="img-modal-content">
-    <button id="close-modal" aria-label="Fechar imagem">✕</button>
-    <img id="modal-image" src="" alt="">
-    <div id="modal-caption" class="modal-caption"></div>
-  </div>
-</div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div>©️ <span id="year"></span> Val Magazine</div>
+    <div>Todos os direitos reservados.</div>
+  </footer>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div>©️ <span id="year"></span> Val Magazine</div>
-  <div>Todos os direitos reservados.</div>
-</footer>
-
-<script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
