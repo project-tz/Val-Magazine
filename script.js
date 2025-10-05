@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   { name: "Bolsa Corrente Miss Dong (Caqui)", price: 58.00, image: "bolsacorrentecaqui.jpeg", category: "Bolsas" },
   { name: "Bolsa Corrente Miss Dong (Preta)", price: 58.00, image: "bolsacorrentepreta.jpeg", category: "Bolsas" },
   { name: "Carteira Feminina Style (Branca)", price: 49.00, image: "carteirafembranca.jpeg", category: "Acessórios" },
-  { name: "Carteira Feminina Style (Preta)", price: 49.00, image: "carteirafemipreta.jpeg", category: "Acessórios" },
+  { name: "Carteira Feminina Style (Preta)", price: 49.00, image: "femcarteirapreta.jpeg", category: "Acessórios" },
   { name: "Bolsa com Corrente e Fecho Triangular (Caqui)", price: 59.90, image: "bolsafechocaqui.jpeg", category: "Bolsas" },
   { name: "Bolsa com Corrente e Fecho Triangular (Caramelo)", price: 55.90, image: "bolsafechocaramelo.jpeg", category: "Bolsas" },
   { name: "Bolsa Tiracolo Matelassê Miss Dong (Preta)", price: 79.90, image: "bolsatiracolopreta.jpeg", category: "Bolsas" },
