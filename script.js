@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
   { name: "Caixa de Papel para Presente Vermelha", price: 7.90, image: "caixapapelverm.jpeg", category: "Kits/Cestas" },
   { name: "Caixa de Bombom dia dos Pais", price: 5.90, image: "caixabombom.jpeg", category: "Kits/Cestas" },
   { name: "Relógio Masculino CURREN Azul", price: 229.90, image: "relogiocurrenazul.jpeg", category: "Relógios" },
-  { name: "Relógio Masculino CURREN Preto", price: 229.90, image: "relógiocorrentepreto.jpeg", category: "Relógios" },
+  { name: "Relógio Masculino CURREN Preto", price: 229.90, image: "relogiocorrentepreto.jpeg", category: "Relógios" },
   { name: "Relógio Masculino Prata", price: 49.90, image: "relogiomascprata.jpeg", category: "Relógios" },
   { name: "Relógio Masculino Preto", price: 49.90, image: "relogiomascpreto.jpeg", category: "Relógios" },
   { name: "Relógio Masculino Dourado", price: 49.90, image: "relogiomascdourado.jpeg", category: "Relógios" },
