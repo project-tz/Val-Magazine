@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
   { name: "Bolsa com Corrente e Fecho Triangular (Caramelo)", price: 55.90, image: "bolsafechocaramelo.jpeg", category: "Bolsas" },
   { name: "Bolsa Tiracolo Matelassê Miss Dong (Preta)", price: 79.90, image: "bolsatiracolopreta.jpeg", category: "Bolsas" },
   { name: "Bolsa Tiracolo Matelassê Miss Dong (Marrom)", price: 79.90, image: "bolsatiracolomarrom.jpeg", category: "Bolsas" },
+  { name: "Estojo De Maquiagem Infantil Vivai ", price: 15.90, image: "maquiageminf.jpg", category: "Brinquedos" },
   { name: "Bolsa Tiracolo Matelassê Miss Dong (OFF White)", price: 79.90, image: "bolsatiracolowhite.jpeg", category: "Bolsas" }
   ];
 
